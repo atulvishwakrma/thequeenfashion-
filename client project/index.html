@@ -1,0 +1,992 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>The Queen Fashion</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600&family=Mukta:wght@400;500;600&family=Tiro+Devanagari+Hindi:ital@0;1&family=Yatra+One&display=swap">
+<style>
+/* Layout: sticky header with language switch, cart and wishlist; hero; filterable collection; offers; reels; about; contact; legal pages. Admin is a separate view at #admin. One committed look: light champagne gold. */
+:root{
+  --bg:#FBF6E8; --card:#FFFDF6; --champ:#F3E6C2; --line:#E6D5A6;
+  --gold:#C9A24B; --gold-deep:#7E6430; --gold-light:#EBD58F;
+  --ink:#2B2009; --ink-soft:#645232; --wa:#0F7A4B; --danger:#9B2C1F; --ok:#1F6B3A;
+  --f-logo:'Cinzel',Georgia,serif; --f-head:'Cormorant Garamond',Georgia,serif; --f-body:'Jost',system-ui,sans-serif; --f-script:'Great Vibes','Brush Script MT',cursive;
+  color-scheme:light;
+}
+html[data-lang=hi]{--f-head:'Tiro Devanagari Hindi',Georgia,serif;--f-body:'Mukta','Jost',system-ui,sans-serif;--f-script:'Tiro Devanagari Hindi',Georgia,serif}
+html[data-lang=bho]{--f-head:'Yatra One','Tiro Devanagari Hindi',Georgia,serif;--f-body:'Mukta','Jost',system-ui,sans-serif;--f-script:'Yatra One',Georgia,serif}
+html[data-lang=hi] h1,html[data-lang=hi] h2,html[data-lang=hi] h3,html[data-lang=bho] h1,html[data-lang=bho] h2,html[data-lang=bho] h3{line-height:1.3!important}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f-body);margin:0;min-height:100vh;
+  background-image:radial-gradient(circle at 15% 0%,var(--champ),transparent 40%),radial-gradient(circle at 100% 30%,var(--champ),transparent 35%);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--gold-deep);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.gold-text{background:linear-gradient(100deg,var(--gold-deep),var(--gold) 45%,var(--gold-deep) 75%,var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--gold-deep);background-size:220% 100%}
+.shimmer{animation:shine 2.4s ease-out 1}
+@keyframes shine{from{background-position:100% 0}to{background-position:0 0}}
+@media (prefers-reduced-motion:reduce){.shimmer{animation:none}html{scroll-behavior:auto}*{transition:none!important}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--gold-deep);border-radius:999px;padding:11px 22px;font-weight:500;letter-spacing:.02em;text-decoration:none;color:var(--ink);background:linear-gradient(135deg,var(--gold-light),var(--gold) 55%,var(--gold-deep));box-shadow:0 6px 18px -8px var(--gold-deep);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.ghost{background:transparent;box-shadow:none;color:var(--gold-deep)}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:#fff;box-shadow:0 6px 18px -8px var(--wa)}
+.btn.sm{padding:8px 16px;font-size:14px}
+.btn.block{width:100%}
+.btn.danger{background:transparent;color:var(--danger);border-color:var(--danger);box-shadow:none}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.topbar{background:linear-gradient(90deg,var(--gold-deep),var(--gold),var(--gold-deep));color:#fff8e6;text-align:center;font-size:14px;padding:7px 0}
+.topbar span{display:block;padding:0 max(16px,env(safe-area-inset-left,0px))}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.brand .mark{width:44px;height:44px;flex:none}
+.brand .mark img,.brand .mark svg{width:44px;height:44px;object-fit:contain}
+.brand b{display:block;font:600 19px/1.1 var(--f-logo);letter-spacing:.14em;white-space:nowrap}
+.brand i{display:block;font:500 10px/1.4 var(--f-logo);letter-spacing:.5em;color:var(--gold-deep)}
+nav.main{display:flex;gap:22px}
+nav.main a,nav.main button{text-decoration:none;font-weight:500;color:var(--ink-soft);padding:6px 0;border:0;border-bottom:1px solid transparent;background:none}
+nav.main a:hover,nav.main button:hover{color:var(--ink);border-color:var(--gold)}
+.tools{display:flex;align-items:center;gap:8px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+.lang button{border:0;background:none;padding:6px 10px;font-size:13px;color:var(--ink-soft);min-width:34px}
+.lang button[aria-pressed=true]{background:var(--ink);color:var(--gold-light)}
+.ib{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--gold-deep)}
+.ib svg{width:21px;height:21px}
+.ib .bd{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:var(--ink);color:var(--gold-light);font-size:11px;display:grid;place-items:center;padding:0 4px}
+.ib .bd[hidden]{display:none}
+@media (max-width:900px){nav.main{display:none}}
+@media (max-width:520px){.brand b{font-size:14px}.brand i{letter-spacing:.35em}.brand .mark,.brand .mark img,.brand .mark svg{width:36px;height:36px}.lang button{padding:5px 7px;min-width:28px;font-size:12px}.ib{width:38px;height:38px}.head{gap:6px}.tools{gap:5px}}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-top:56px;padding-bottom:64px}
+.hero .script{font:400 34px/1.2 var(--f-script);color:var(--gold-deep);margin:0 0 4px}
+.hero h1{font:600 clamp(44px,7vw,84px)/.98 var(--f-head);margin:0 0 18px;text-wrap:balance}
+.hero p.lead{font-size:18px;color:var(--ink-soft);max-width:46ch;margin:0 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:34px 0 0;padding:0;list-style:none;color:var(--ink-soft);font-size:15px}
+.facts li{display:flex;align-items:center;gap:8px}
+.facts li::before{content:"";width:7px;height:7px;transform:rotate(45deg);background:var(--gold)}
+.arch{position:relative;max-width:420px;margin-left:auto;width:100%;padding:12px;border:1.5px solid var(--gold);border-radius:999px 999px 28px 28px;background:linear-gradient(180deg,var(--card),var(--champ))}
+.arch .frame{aspect-ratio:3/4;border-radius:999px 999px 20px 20px;overflow:hidden}
+.arch .frame>img,.arch .frame>.ph{width:100%;height:100%;object-fit:cover}
+.arch .tag{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);background:var(--ink);color:var(--gold-light);padding:9px 20px;border-radius:999px;white-space:nowrap;font:600 17px var(--f-head);border:1px solid var(--gold);max-width:92%;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:44px;padding-top:36px}.arch{margin:0 auto;max-width:340px}}
+.ph{display:grid;place-items:center;text-align:center;color:var(--gold-deep);background-image:repeating-linear-gradient(45deg,transparent 0 14px,rgba(255,255,255,.22) 14px 15px),repeating-linear-gradient(-45deg,transparent 0 14px,rgba(255,255,255,.22) 14px 15px),linear-gradient(160deg,var(--a,#F6E7BE),var(--b,#E3C77A))}
+.ph svg{width:34%;height:auto;opacity:.85;margin:0 auto}
+.ph span{display:block;font:italic 600 20px var(--f-head);margin-top:8px}
+section.block{padding-top:64px;padding-bottom:24px;scroll-margin-top:70px}
+.sec-head{text-align:center;margin-bottom:30px}
+.sec-head h2{font:600 clamp(34px,5vw,52px)/1.05 var(--f-head);margin:0}
+.sec-head p{margin:10px auto 0;color:var(--ink-soft);max-width:52ch}
+.orn{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px}
+.orn::before,.orn::after{content:"";height:1px;width:72px;background:linear-gradient(90deg,transparent,var(--gold))}
+.orn::after{transform:scaleX(-1)}
+.orn i{width:9px;height:9px;transform:rotate(45deg);border:1.5px solid var(--gold)}
+.fbar{display:grid;gap:14px;margin-bottom:22px}
+.fbar input[type=search],.fbar select,.fsel{border:1px solid var(--line);border-radius:999px;padding:10px 16px;background:var(--card);color:var(--ink);font:inherit;min-width:0}
+.frow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.frow select{flex:1 1 150px}
+.chk{display:flex;align-items:center;gap:8px;color:var(--ink-soft);font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink-soft);border-radius:999px;padding:7px 16px;font-weight:500}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--gold-light);border-color:var(--ink)}
+.count{color:var(--ink-soft);font-size:14px;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px}
+@media (max-width:560px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+.pc{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:transform .2s,box-shadow .2s}
+.pc:hover{transform:translateY(-3px);box-shadow:0 18px 30px -20px var(--gold-deep)}
+.pc .pic{position:relative;aspect-ratio:4/5;background:none;border:0;padding:0;display:block;width:100%}
+.pic>img,.pic>.ph{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:10px;left:10px;background:var(--ink);color:var(--gold-light);font-size:12px;font-weight:500;padding:4px 12px;border-radius:999px}
+.badge.out{background:var(--danger);color:#fff}
+.heart{position:absolute;top:8px;right:8px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 90%,transparent);display:grid;place-items:center;color:var(--gold-deep);z-index:2}
+.heart svg{width:20px;height:20px}
+.heart[aria-pressed=true]{color:#B3262E}
+.heart[aria-pressed=true] svg{fill:currentColor}
+.pc .info{padding:12px 14px 16px;display:flex;flex-direction:column;gap:5px;flex:1}
+.pc h3{font:600 21px/1.15 var(--f-head);margin:0;overflow-wrap:anywhere}
+.pc .cat{font-size:13px;color:var(--ink-soft)}
+.price{font:600 20px var(--f-head);color:var(--gold-deep);font-variant-numeric:tabular-nums}
+.price s{font:400 14px var(--f-body);color:var(--ink-soft);margin-left:8px}
+.pc .btn{margin-top:auto}
+.stars{--r:0;display:inline-block;font:15px/1 Arial,sans-serif;letter-spacing:2px;background:linear-gradient(90deg,var(--gold) calc(var(--r)*20%),var(--line) calc(var(--r)*20%));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;vertical-align:middle}
+.stars::before{content:"★★★★★"}
+.rate{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);min-height:20px}
+.empty{text-align:center;color:var(--ink-soft);padding:36px 16px;border:1px dashed var(--gold);border-radius:18px}
+.offers{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.offer{position:relative;padding:26px;border-radius:20px;background:linear-gradient(150deg,var(--ink),#46340f);color:#f8ecc9;overflow:hidden;border:1px solid var(--gold)}
+.offer h3{font:600 28px/1.15 var(--f-head);margin:0 0 8px;color:var(--gold-light)}
+.offer p{margin:0 0 14px;color:#eadcb4}
+.offer .code{display:inline-block;border:1px dashed var(--gold-light);color:var(--gold-light);padding:4px 12px;border-radius:8px;font-weight:500;letter-spacing:.1em;margin-right:8px}
+.offer small{color:#cdbb88}
+.reels{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 16px}
+.reel{flex:0 0 210px;scroll-snap-align:start;text-decoration:none;display:block}
+.reel .rv{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;border:1px solid var(--gold);background:var(--ink)}
+.reel .rv>img,.reel .rv>.ph{width:100%;height:100%;object-fit:cover}
+.reel .play{position:absolute;inset:0;display:grid;place-items:center}
+.reel .play i{width:58px;height:58px;border-radius:50%;background:rgba(43,32,9,.7);border:1px solid var(--gold-light);display:grid;place-items:center}
+.reel .play i::after{content:"";border-left:16px solid var(--gold-light);border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+.reel .cap{position:absolute;left:0;right:0;bottom:0;padding:30px 12px 12px;background:linear-gradient(transparent,rgba(43,32,9,.85));color:#fff4d4;font:600 18px/1.2 var(--f-head)}
+.reel small{display:block;margin-top:8px;color:var(--gold-deep);font-weight:500}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about h2{font:600 clamp(34px,5vw,50px)/1.05 var(--f-head);margin:0 0 14px}
+.about p{color:var(--ink-soft);max-width:56ch}
+.pillars{display:grid;gap:14px}
+.pillar{display:flex;gap:16px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.pillar svg{flex:none;width:30px;height:30px;color:var(--gold)}
+.pillar b{font:600 20px var(--f-head);display:block}
+.pillar span{color:var(--ink-soft);font-size:15px}
+@media (max-width:820px){.about{grid-template-columns:1fr}}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.cbox{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;min-width:0}
+.cbox h3{font:600 28px var(--f-head);margin:0 0 14px}
+.crow{display:flex;gap:14px;padding:10px 0;border-top:1px solid var(--line)}
+.crow:first-of-type{border-top:0}
+.crow dt{width:84px;flex:none;color:var(--ink-soft);font-size:14px}
+.crow dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.mapcard{background:linear-gradient(160deg,var(--champ),var(--card));display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:14px}
+@media (max-width:820px){.contact{grid-template-columns:1fr}}
+footer.site{margin-top:64px;border-top:1px solid var(--line);padding-top:28px;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));color:var(--ink-soft);font-size:14px}
+footer .links{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
+footer a{color:var(--gold-deep)}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+.linkbtn{background:none;border:0;color:var(--ink-soft);text-decoration:underline;padding:0}
+.legal{max-width:760px;margin:0 auto;padding-top:40px;padding-bottom:20px}
+.legal h1{font:600 clamp(36px,6vw,56px)/1.1 var(--f-head);margin:0 0 20px}
+.legal h2{font:600 26px var(--f-head);margin:26px 0 6px}
+.legal p{color:var(--ink-soft);margin:0}
+.overlay{position:fixed;inset:0;background:rgba(43,32,9,.6);z-index:80;display:grid;place-items:center;padding:16px}
+.modal{background:var(--card);border:1px solid var(--gold);border-radius:22px;max-width:780px;width:100%;max-height:92vh;overflow:auto;position:relative}
+.modal.pm{display:grid;grid-template-columns:1fr 1fr}
+.modal .pic{aspect-ratio:4/5}
+.modal .body{padding:26px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.modal h3{font:600 32px/1.1 var(--f-head);margin:0}
+.modal .pad{padding:26px}
+.modal .x{position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:20px;line-height:1;z-index:3}
+.modal .revs{grid-column:1/-1;padding:0 26px 26px}
+@media (max-width:640px){.modal.pm{grid-template-columns:1fr}.modal .pic{aspect-ratio:1/1}}
+.sizes{display:flex;flex-wrap:wrap;gap:8px}
+.sizes button{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:7px 14px}
+.sizes button[aria-pressed=true]{background:var(--ink);color:var(--gold-light);border-color:var(--ink)}
+.rev{border-top:1px solid var(--line);padding:12px 0}
+.rev b{margin-right:8px}
+.rev small{color:var(--ink-soft)}
+.sin{display:flex;gap:4px}
+.sin button{border:0;background:none;font-size:28px;line-height:1;color:var(--line);padding:2px}
+.sin button[aria-pressed=true]{color:var(--gold)}
+.dback{position:fixed;inset:0;background:rgba(43,32,9,.55);z-index:80}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--bg);z-index:85;display:flex;flex-direction:column;border-left:1px solid var(--gold)}
+.dhead{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;padding-top:calc(16px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--line)}
+.dhead b{font:600 26px var(--f-head)}
+.x2{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:20px}
+.dbody{flex:1;overflow:auto;padding:14px 18px}
+.dfoot{padding:14px 18px;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--card);display:grid;gap:8px}
+.li{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.li:first-child{border-top:0}
+.li .th{width:64px;height:80px;border-radius:10px;overflow:hidden;flex:none;border:1px solid var(--line)}
+.li .th>img,.li .th>.ph{width:100%;height:100%;object-fit:cover}
+.li .th .ph svg{width:50%}.li .th .ph span{display:none}
+.li .t{flex:1;min-width:0}
+.li .t b{display:block;overflow-wrap:anywhere}
+.li .t small{color:var(--ink-soft)}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;margin-top:6px}
+.qty button{width:32px;height:32px;border:0;background:none;font-size:18px}
+.qty span{min-width:24px;text-align:center}
+.sum{display:flex;justify-content:space-between;gap:10px;font-variant-numeric:tabular-nums}
+.sum.tot{font:600 22px var(--f-head);color:var(--gold-deep)}
+.coupon{display:flex;gap:8px;margin-top:14px}
+.coupon input{flex:1;min-width:0}
+.fi{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;color:var(--ink);background:#fff;min-width:0;width:100%}
+.fl{display:flex;flex-direction:column;gap:5px;font-size:14px;color:var(--ink-soft);min-width:0}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg .full{grid-column:1/-1}
+@media (max-width:560px){.fg{grid-template-columns:1fr}}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.opt input{margin-top:4px}
+.opt.dis{opacity:.55}
+.opts{display:grid;gap:8px}
+.upi{background:var(--champ);border-radius:12px;padding:14px;display:grid;gap:10px;font-size:15px}
+.upi code{background:#fff;padding:3px 8px;border-radius:6px;word-break:break-all}
+.tl{display:flex;flex-wrap:wrap;gap:6px 0;list-style:none;margin:14px 0;padding:0}
+.tl li{flex:1 1 90px;text-align:center;font-size:12px;color:var(--ink-soft);position:relative}
+.tl li i{display:block;width:16px;height:16px;border-radius:50%;margin:0 auto 6px;border:2px solid var(--line);background:#fff}
+.tl li.on{color:var(--ink);font-weight:500}
+.tl li.on i{background:var(--gold);border-color:var(--gold-deep)}
+.thanks{text-align:center}
+.thanks .tick{width:64px;height:64px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;margin:0 auto 12px;font-size:34px}
+.pill{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:var(--champ);color:var(--gold-deep);margin-left:6px;font-weight:500}
+.pill.red{background:#f6d9d4;color:var(--danger)}.pill.green{background:#d6ecd9;color:var(--ok)}.pill.demo{background:#fff1c9;color:#7a5200}
+.fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;align-items:center;gap:10px;background:var(--wa);color:#fff;border:0;border-radius:999px;padding:13px 20px;font-weight:500;box-shadow:0 12px 26px -10px #000a}
+.fab svg{width:24px;height:24px}
+.chat{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:75;width:min(380px,calc(100vw - 32px));height:min(560px,calc(100vh - 120px));background:var(--card);border:1px solid var(--gold);border-radius:22px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px -20px #000a}
+.chat .ch{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(135deg,var(--ink),#46340f);color:var(--gold-light)}
+.chat .ch b{font:600 20px var(--f-head);display:block;line-height:1.1}
+.chat .ch button{margin-left:auto;background:none;border:0;color:var(--gold-light);font-size:22px}
+.msgs{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.m{max-width:86%;padding:10px 14px;border-radius:16px;font-size:15px;overflow-wrap:anywhere}
+.m.bot{background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.m.me{background:var(--gold-light);border-bottom-right-radius:4px;align-self:flex-end}
+.m a.pl{display:flex;justify-content:space-between;gap:10px;text-decoration:none;padding:6px 0;border-top:1px solid var(--line);color:var(--gold-deep);font-weight:500}
+.quick{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px 0;background:var(--bg)}
+.quick button{border:1px solid var(--gold);background:var(--card);color:var(--gold-deep);border-radius:999px;padding:5px 12px;font-size:14px}
+.chat form{display:flex;gap:8px;padding:12px;background:var(--bg)}
+.chat input{flex:1;min-width:0;border:1px solid var(--line);border-radius:999px;padding:10px 16px;background:var(--card);color:var(--ink);font:inherit}
+.chat form button{border:0;background:var(--ink);color:var(--gold-light);border-radius:999px;padding:0 18px}
+.langpick{display:grid;gap:10px;margin:18px 0 6px}
+.langpick button{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:12px 16px;font-size:24px;text-align:left;display:flex;justify-content:space-between;align-items:center}
+.langpick button[aria-pressed=true]{border-color:var(--gold-deep);background:var(--champ)}
+.langpick small{font:400 13px var(--f-body);color:var(--ink-soft)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--gold-light);padding:10px 20px;border-radius:999px;z-index:120;border:1px solid var(--gold);max-width:92vw;text-align:center}
+.adm{background:var(--bg);min-height:100vh;font-family:'Jost',system-ui,sans-serif}
+.adm-head{background:var(--ink);color:var(--gold-light);position:sticky;top:env(safe-area-inset-top,0px);z-index:50}
+.adm-head .wrap{display:flex;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+.adm-head b{font:600 22px 'Cormorant Garamond',serif;margin-right:auto}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:16px 0}
+.tab{border:1px solid var(--line);background:var(--card);color:var(--ink-soft);border-radius:999px;padding:8px 18px;white-space:nowrap}
+.tab[aria-selected=true]{background:var(--gold);color:var(--ink);border-color:var(--gold-deep);font-weight:500}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:20px}
+.panel h3{font:600 26px 'Cormorant Garamond',serif;margin:0 0 14px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.fgrid .full{grid-column:1/-1}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--ink-soft);min-width:0}
+label.f input,label.f select,label.f textarea,.adm textarea.mono{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;color:var(--ink);background:#fff;min-width:0;width:100%}
+label.f textarea{min-height:76px;resize:vertical}
+.adm textarea.mono{font:13px/1.4 ui-monospace,Menlo,monospace;min-height:130px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.row-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.row-item:first-child{border-top:0}
+.thumb{width:56px;height:70px;border-radius:10px;overflow:hidden;flex:none;border:1px solid var(--line)}
+.thumb>img,.thumb>.ph{width:100%;height:100%;object-fit:cover}
+.thumb .ph svg{width:50%}.thumb .ph span{display:none}
+.row-item .t{flex:1;min-width:150px}
+.row-item .t b{display:block;overflow-wrap:anywhere}
+.row-item .t small{color:var(--ink-soft)}
+.sw{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sw button{width:40px;height:40px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.sw button[aria-pressed=true]{box-shadow:0 0 0 2px var(--ink)}
+.note{font-size:14px;color:var(--ink-soft);background:var(--champ);border-radius:12px;padding:12px 14px;margin:0 0 16px}
+.login{max-width:380px;margin:12vh auto;text-align:center}
+.login .panel{padding:32px}
+.prev{max-width:160px;aspect-ratio:4/5;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.prev img{width:100%;height:100%;object-fit:cover}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat b{display:block;font:600 28px 'Cormorant Garamond',serif;color:var(--gold-deep)}
+.stat span{font-size:13px;color:var(--ink-soft)}
+.ord{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px}
+.ord .oh{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.ord .oh b{font:600 22px 'Cormorant Garamond',serif}
+.ord table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0}
+.ord td{padding:4px 0;vertical-align:top}
+.ord td:last-child{text-align:right;white-space:nowrap}
+.ord .cust{font-size:14px;color:var(--ink-soft);overflow-wrap:anywhere}
+.cancelbox{background:#fbeae6;border-radius:12px;padding:14px;margin-top:12px;display:grid;gap:10px}
+</style>
+<div id="app"></div>
+<div id="layer"></div>
+<div id="toast" class="toast" hidden></div>
+<script>
+(function(){
+'use strict';
+var KEY='qf_state_v2',CKEY='qf_cust_v1';
+var $=function(s,r){return (r||document).querySelector(s)};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var money=function(n){return '₹'+Number(n||0).toLocaleString('en-IN')};
+var T={en:{},hi:{},bho:{}};
+T.en={
+nav_collection:`Collection`,nav_offers:`Offers`,nav_reels:`Reels`,nav_about:`About us`,nav_contact:`Contact`,nav_track:`Track order`,
+welcome:`Welcome`,tagline:`Rasra's own royal style`,lead:`Carefully chosen outfits for weddings, festivals and everyday wear, right in the heart of Rasra.`,
+shop_now:`Shop the collection`,directions:`Get directions`,fact1:`Bhagat Singh Mod, Rasra`,fact2:`Order on WhatsApp`,fact3:`New designs every week`,
+announce:`New wedding-season collection has arrived. Visit the store today.`,
+coll_title:`Our Collection`,coll_sub:`Tap a piece for details, add it to your cart or save it to your wishlist.`,search_ph:`Search outfits`,all:`All`,
+p_any:`Any price`,p_1:`Under ₹1,000`,p_2:`₹1,000 to ₹3,000`,p_3:`₹3,000 to ₹6,000`,p_4:`Above ₹6,000`,s_any:`Any size`,f_stock:`In stock only`,
+sort_new:`Newest`,sort_lo:`Price: low to high`,sort_hi:`Price: high to low`,sort_rate:`Top rated`,sort_off:`Biggest discount`,clear:`Clear filters`,
+showing:`{0} products`,no_results:`Nothing matches your filters. Try clearing some.`,
+add_cart:`Add to cart`,buy_now:`Buy now`,sold_out:`Sold out`,only_left:`Only {0} left`,pick_size:`Please choose a size first.`,added:`Added to cart`,
+wish_add:`Save to wishlist`,wish_rem:`Remove from wishlist`,size:`Size`,ask_wa:`Ask on WhatsApp`,out_msg:`Currently out of stock. Ask us, it may be back soon.`,
+rev_title:`Ratings and reviews`,rev_none:`No reviews yet. Be the first to review.`,rev_count:`{0} reviews`,rev_write:`Write a review`,rev_name:`Your name`,rev_rating:`Your rating`,
+rev_text:`Your review (optional)`,rev_send:`Submit review`,rev_thanks:`Thank you for your review!`,rev_need:`Please add your name and a star rating.`,
+cart:`Your cart`,cart_empty:`Your cart is empty.`,wish:`Wishlist`,wish_empty:`Nothing saved yet. Tap the heart on any outfit.`,to_cart:`Move to cart`,
+subtotal:`Subtotal`,discount:`Discount`,delivery:`Delivery`,free:`Free`,total:`Total`,coupon:`Coupon code`,apply:`Apply`,coupon_ok:`Coupon applied: {0}% off`,coupon_bad:`This code is not valid.`,
+checkout:`Checkout`,remove:`Remove`,cont:`Continue shopping`,
+co_details:`Your details`,co_name:`Full name`,co_phone:`Mobile number`,co_addr:`Address`,co_city:`Town or village`,co_pin:`PIN code`,co_note:`Note (optional)`,
+co_deliv:`Delivery`,co_home:`Home delivery`,co_pick:`Pick up from store (free)`,co_pay:`Payment`,co_upi:`UPI (GPay, PhonePe, Paytm)`,co_cod:`Cash on delivery`,co_store:`Pay at store`,
+co_card:`Card and net banking (coming soon)`,co_upi_help:`Pay {0} to UPI ID {1}. Then enter the UPI reference number below. We confirm the order after we verify the payment.`,co_upi_ref:`UPI reference number`,
+copy:`Copy`,copied:`Copied`,open_upi:`Open UPI app`,co_place:`Place order`,co_summary:`Order summary`,co_err:`Please fill all required fields.`,
+co_err_phone:`Enter a valid 10 digit mobile number.`,co_err_pin:`Enter a valid 6 digit PIN code.`,co_err_stock:`Some items are not available in the quantity you chose.`,
+ty_title:`Thank you, {0}!`,ty_body:`Your order {0} has been placed. We will confirm it shortly.`,ty_upi:`We will confirm your order once your UPI payment is verified.`,
+ty_cod:`Please keep {0} ready when the order reaches you.`,ty_store:`Please collect your order from our store and pay there.`,ty_wa:`Send order details on WhatsApp`,
+ty_note:`Sending it on WhatsApp helps us confirm faster.`,ty_love:`Thank you for shopping with The Queen Fashion.`,
+tr_title:`Track your order`,tr_id:`Order number`,tr_find:`Find order`,tr_none:`No order found with these details.`,tr_recent:`Your recent orders`,
+st_placed:`Order placed`,st_confirmed:`Confirmed`,st_packed:`Packed`,st_out:`Out for delivery`,st_ready:`Ready for pickup`,st_delivered:`Delivered`,st_cancelled:`Cancelled`,
+tr_cancel:`Cancel this order`,tr_cancel_sure:`Tap again to cancel`,tr_reason:`Reason: {0}`,tr_conf:`Your order is confirmed. Thank you for shopping with us!`,
+pay_pending:`Payment pending`,pay_paid:`Paid`,pay_refund_due:`Refund due`,pay_refunded:`Refunded`,pay_void:`No payment`,
+reels_title:`From our Instagram`,reels_sub:`Watch our latest reels to see how the outfits look and move.`,reel_watch:`Watch on Instagram`,reel_follow:`Follow us on Instagram`,
+about_title:`About us`,about_text:`The Queen Fashion is on Bhagat Singh Mod, Rasra. We bring carefully chosen outfits for weddings, festivals and daily wear at fair prices, with honest service.`,
+pil1_t:`In Rasra, close to you`,pil1_d:`Visit us at Bhagat Singh Mod and feel the fabric before you buy.`,pil2_t:`Carefully chosen designs`,pil2_d:`Fresh pieces for every occasion arrive regularly.`,
+pil3_t:`Chat directly on WhatsApp`,pil3_d:`Send us a piece you like and learn availability and price instantly.`,
+contact_title:`Contact us`,c_info:`Store details`,c_addr:`Address`,c_phone:`Phone`,c_hours:`Hours`,c_visit:`Visit the store`,c_visit_d:`Open Google Maps for the way to Bhagat Singh Mod, Rasra.`,c_maps:`Open Google Maps`,c_wa:`Chat on WhatsApp`,
+hours_default:`Every day, 10:30 AM to 9:00 PM`,
+f_privacy:`Privacy Policy`,f_terms:`Terms and Conditions`,f_returns:`Return and Refund Policy`,f_shipping:`Shipping and Delivery Policy`,f_owner:`Shop owner login`,f_back:`Back to shop`,
+lang_title:`Choose your language`,lang_cont:`Continue`,
+chat_btn:`Ask us`,chat_name:`Queen Assistant`,chat_ph:`Type here...`,chat_send:`Send`,q_new:`New arrivals`,q_offers:`Offers`,q_budget:`My budget`,q_addr:`Store address`,q_time:`Timings`,
+bot_greet:`Hello! I am the assistant of {0}. Ask me about outfits, offers, prices or the store.`,bot_hi:`Hello! What would you like to see today?`,
+bot_offers:`Current offers:`,bot_no_offer:`There is no special offer right now. New offers will come soon.`,bot_cat:`A few picks from {0}:`,bot_cat_none:`Nothing available in {0} right now.`,
+bot_budget:`Options up to {0}:`,bot_budget_none:`Nothing found up to {0}. Try a slightly higher budget.`,bot_ask_budget:`What is your budget? Write something like "2000".`,
+bot_new:`Our newest pieces:`,bot_tap:`Tap a piece to ask on WhatsApp.`,bot_addr:`You can find us here:`,bot_time:`Store timings:`,bot_phone:`Our number is {0}. You can also chat on WhatsApp.`,
+bot_order:`Ordering is easy. Add outfits to your cart and tap Checkout, or message us on WhatsApp.`,bot_thanks:`Thank you! We look forward to seeing you.`,
+bot_fallback:`Sorry, I did not get that. You can ask about the collection, offers, budget or the store address, or chat with the shop owner on WhatsApp.`,
+lg_privacy:[[`What we collect`,`When you order, we collect your name, mobile number and delivery address. If you write a review, we also keep your name and the review.`],[`How we use it`,`We use it only to process and deliver your order, to contact you about it and to improve our service. We do not sell your information.`],[`Sharing and storage`,`Your details are shared only with people who help deliver your order and with payment providers when needed. We keep them only as long as needed for orders, returns and legal records.`],[`Your choices`,`You can ask us to correct or delete your details by calling {phone} or messaging us on WhatsApp.`]],
+lg_terms:[[`Orders`,`An order is confirmed only after we accept it. We may cancel an order if an item is out of stock or the details are unclear, and we will refund any payment already made.`],[`Prices`,`All prices are in Indian rupees and may change without notice. The price shown when you place your order is the price you pay.`],[`Product photos`,`Colours may look slightly different on your screen. If you are unsure about a colour or fabric, visit the store or ask us on WhatsApp.`],[`Payments`,`We accept UPI, cash on delivery and payment at the store. UPI orders are confirmed after we verify the payment.`],[`Disputes`,`Any dispute is subject to the courts at Ballia, Uttar Pradesh, India.`]],
+lg_returns:[[`Exchange and return window`,`You can ask for an exchange or return within {days} days of delivery if the item is unused, unwashed and has its tags.`],[`What cannot be returned`,`Items stitched to measure, altered, or marked as final sale cannot be returned.`],[`Damaged or wrong item`,`If you receive a damaged or wrong item, tell us within 48 hours with a photo and we will replace it or refund you.`],[`Refunds`,`Refunds for UPI payments go back to the same account within 5 to 7 working days after we receive the item. For cash on delivery we refund by UPI to the account you share.`],[`How to start a return`,`Call {phone} or message us on WhatsApp with your order number.`]],
+lg_shipping:[[`Where we deliver`,`We deliver in {area}. Orders are usually delivered in {dd} working days after confirmation.`],[`Delivery charges`,`Delivery costs ₹{fee}. Orders of ₹{free} and above get free delivery. Store pickup is always free.`],[`Before delivery`,`We will call or message you before delivery. Please keep your phone reachable.`],[`If we cannot reach you`,`If we cannot reach you after two attempts, the order may return to the store and we will contact you.`]]
+};
+T.hi={
+nav_collection:`कलेक्शन`,nav_offers:`ऑफर`,nav_reels:`रील्स`,nav_about:`हमारे बारे में`,nav_contact:`संपर्क`,nav_track:`ऑर्डर ट्रैक करें`,
+welcome:`स्वागत है`,tagline:`रसड़ा की अपनी शाही शान`,lead:`शादी, त्योहार और रोज़ के पहनावे के लिए चुने हुए कपड़े, सीधे रसड़ा के दिल में।`,
+shop_now:`कलेक्शन देखें`,directions:`रास्ता देखें`,fact1:`भगत सिंह मोड़, रसड़ा`,fact2:`WhatsApp पर ऑर्डर`,fact3:`हर हफ़्ते नए डिज़ाइन`,
+announce:`शादी के मौसम का नया कलेक्शन आ गया है। आज ही दुकान पर आइए।`,
+coll_title:`हमारा कलेक्शन`,coll_sub:`किसी भी पीस पर टैप करें, डिटेल देखें, कार्ट में जोड़ें या विशलिस्ट में सहेजें।`,search_ph:`कपड़े खोजें`,all:`सभी`,
+p_any:`कोई भी कीमत`,p_1:`₹1,000 से कम`,p_2:`₹1,000 से ₹3,000`,p_3:`₹3,000 से ₹6,000`,p_4:`₹6,000 से ऊपर`,s_any:`कोई भी साइज़`,f_stock:`सिर्फ़ उपलब्ध`,
+sort_new:`नए पहले`,sort_lo:`कीमत: कम से ज़्यादा`,sort_hi:`कीमत: ज़्यादा से कम`,sort_rate:`सबसे अच्छी रेटिंग`,sort_off:`सबसे ज़्यादा छूट`,clear:`फ़िल्टर हटाएँ`,
+showing:`{0} प्रोडक्ट`,no_results:`कोई प्रोडक्ट नहीं मिला। कुछ फ़िल्टर हटाकर देखें।`,
+add_cart:`कार्ट में जोड़ें`,buy_now:`अभी खरीदें`,sold_out:`स्टॉक खत्म`,only_left:`सिर्फ़ {0} बचे`,pick_size:`पहले साइज़ चुनें।`,added:`कार्ट में जुड़ गया`,
+wish_add:`विशलिस्ट में सहेजें`,wish_rem:`विशलिस्ट से हटाएँ`,size:`साइज़`,ask_wa:`WhatsApp पर पूछें`,out_msg:`अभी स्टॉक में नहीं है। हमसे पूछें, जल्द आ सकता है।`,
+rev_title:`रेटिंग और समीक्षा`,rev_none:`अभी कोई समीक्षा नहीं। पहली समीक्षा आप लिखें।`,rev_count:`{0} समीक्षाएँ`,rev_write:`समीक्षा लिखें`,rev_name:`आपका नाम`,rev_rating:`आपकी रेटिंग`,
+rev_text:`आपकी समीक्षा (वैकल्पिक)`,rev_send:`समीक्षा भेजें`,rev_thanks:`आपकी समीक्षा के लिए धन्यवाद!`,rev_need:`अपना नाम और स्टार रेटिंग दें।`,
+cart:`आपका कार्ट`,cart_empty:`आपका कार्ट खाली है।`,wish:`विशलिस्ट`,wish_empty:`अभी कुछ सहेजा नहीं। किसी कपड़े पर दिल का निशान दबाएँ।`,to_cart:`कार्ट में डालें`,
+subtotal:`उप-योग`,discount:`छूट`,delivery:`डिलीवरी`,free:`मुफ़्त`,total:`कुल`,coupon:`कूपन कोड`,apply:`लगाएँ`,coupon_ok:`कूपन लगा: {0}% छूट`,coupon_bad:`यह कोड मान्य नहीं है।`,
+checkout:`चेकआउट`,remove:`हटाएँ`,cont:`खरीदारी जारी रखें`,
+co_details:`आपकी जानकारी`,co_name:`पूरा नाम`,co_phone:`मोबाइल नंबर`,co_addr:`पता`,co_city:`शहर या गाँव`,co_pin:`पिन कोड`,co_note:`नोट (वैकल्पिक)`,
+co_deliv:`डिलीवरी`,co_home:`घर पर डिलीवरी`,co_pick:`दुकान से ले जाएँ (मुफ़्त)`,co_pay:`भुगतान`,co_cod:`डिलीवरी पर नकद`,co_store:`दुकान पर भुगतान`,
+co_card:`कार्ड और नेट बैंकिंग (जल्द आ रहा है)`,co_upi_help:`{0} को UPI ID {1} पर भेजें। फिर नीचे UPI रेफ़रेंस नंबर डालें। भुगतान जाँचने के बाद हम ऑर्डर पक्का करेंगे।`,co_upi_ref:`UPI रेफ़रेंस नंबर`,
+copy:`कॉपी`,copied:`कॉपी हो गया`,open_upi:`UPI ऐप खोलें`,co_place:`ऑर्डर करें`,co_summary:`ऑर्डर का सार`,co_err:`सभी ज़रूरी जानकारी भरें।`,
+co_err_phone:`सही 10 अंकों का मोबाइल नंबर डालें।`,co_err_pin:`सही 6 अंकों का पिन कोड डालें।`,co_err_stock:`कुछ सामान आपकी चुनी मात्रा में उपलब्ध नहीं है।`,
+ty_title:`धन्यवाद, {0}!`,ty_body:`आपका ऑर्डर {0} हो गया है। हम जल्द ही इसे पक्का करेंगे।`,ty_upi:`आपका UPI भुगतान जाँचने के बाद हम ऑर्डर पक्का करेंगे।`,
+ty_cod:`ऑर्डर पहुँचने पर कृपया {0} तैयार रखें।`,ty_store:`कृपया अपना ऑर्डर हमारी दुकान से लें और वहीं भुगतान करें।`,ty_wa:`ऑर्डर की जानकारी WhatsApp पर भेजें`,
+ty_note:`WhatsApp पर भेजने से हम जल्दी पक्का कर पाते हैं।`,ty_love:`द क्वीन फ़ैशन से खरीदारी के लिए धन्यवाद।`,
+tr_title:`अपना ऑर्डर ट्रैक करें`,tr_id:`ऑर्डर नंबर`,tr_find:`ऑर्डर खोजें`,tr_none:`इन जानकारियों से कोई ऑर्डर नहीं मिला।`,tr_recent:`आपके हाल के ऑर्डर`,
+st_placed:`ऑर्डर मिला`,st_confirmed:`पक्का हुआ`,st_packed:`पैक हुआ`,st_out:`डिलीवरी के लिए निकला`,st_ready:`लेने के लिए तैयार`,st_delivered:`पहुँच गया`,st_cancelled:`रद्द हुआ`,
+tr_cancel:`यह ऑर्डर रद्द करें`,tr_cancel_sure:`रद्द करने के लिए फिर टैप करें`,tr_reason:`कारण: {0}`,tr_conf:`आपका ऑर्डर पक्का हो गया है। हमारे साथ खरीदारी के लिए धन्यवाद!`,
+pay_pending:`भुगतान बाकी`,pay_paid:`भुगतान हुआ`,pay_refund_due:`रिफ़ंड बाकी`,pay_refunded:`रिफ़ंड हुआ`,pay_void:`कोई भुगतान नहीं`,
+reels_title:`हमारे Instagram से`,reels_sub:`हमारी ताज़ा रील्स देखें और जानें कि कपड़े पहनने पर कैसे लगते हैं।`,reel_watch:`Instagram पर देखें`,reel_follow:`Instagram पर हमें फ़ॉलो करें`,
+about_title:`हमारे बारे में`,about_text:`द क्वीन फ़ैशन रसड़ा के भगत सिंह मोड़ पर है। यहाँ शादी, त्योहार और रोज़ के लिए चुने हुए कपड़े सही दाम पर, भरोसे के साथ मिलते हैं।`,
+pil1_t:`रसड़ा में, आपके पास`,pil1_d:`भगत सिंह मोड़ पर आकर कपड़ा हाथ में लेकर देखें।`,pil2_t:`चुने हुए डिज़ाइन`,pil2_d:`हर मौके के लिए नए पीस आते रहते हैं।`,
+pil3_t:`सीधे WhatsApp पर बात`,pil3_d:`पसंद का पीस भेजें और उपलब्धता व कीमत तुरंत जानें।`,
+contact_title:`संपर्क करें`,c_info:`दुकान की जानकारी`,c_addr:`पता`,c_phone:`फ़ोन`,c_hours:`समय`,c_visit:`दुकान पर आइए`,c_visit_d:`भगत सिंह मोड़, रसड़ा का रास्ता Google Maps पर देखें।`,c_maps:`Google Maps खोलें`,c_wa:`WhatsApp पर बात करें`,
+hours_default:`रोज़ सुबह 10:30 से रात 9:00 बजे तक`,
+f_privacy:`गोपनीयता नीति`,f_terms:`नियम और शर्तें`,f_returns:`वापसी और रिफ़ंड नीति`,f_shipping:`शिपिंग और डिलीवरी नीति`,f_owner:`दुकान मालिक लॉगिन`,f_back:`दुकान पर वापस`,
+lang_title:`अपनी भाषा चुनें`,lang_cont:`आगे बढ़ें`,
+chat_btn:`पूछिए`,chat_name:`क्वीन असिस्टेंट`,chat_ph:`यहाँ लिखें...`,chat_send:`भेजें`,q_new:`नया कलेक्शन`,q_offers:`ऑफर`,q_budget:`मेरा बजट`,q_addr:`दुकान का पता`,q_time:`समय`,
+bot_greet:`नमस्ते! मैं {0} की असिस्टेंट हूँ। कपड़े, ऑफर, दाम या दुकान के बारे में पूछिए।`,bot_hi:`नमस्ते! आज क्या देखना चाहेंगे?`,
+bot_offers:`अभी के ऑफर:`,bot_no_offer:`अभी कोई खास ऑफर नहीं है। नए ऑफर जल्द आएँगे।`,bot_cat:`{0} से कुछ पसंदीदा पीस:`,bot_cat_none:`{0} में अभी कुछ उपलब्ध नहीं है।`,
+bot_budget:`{0} तक के विकल्प:`,bot_budget_none:`{0} तक कुछ नहीं मिला। थोड़ा बजट बढ़ाकर देखें।`,bot_ask_budget:`आपका बजट कितना है? जैसे "2000" लिखें।`,
+bot_new:`हमारे सबसे नए पीस:`,bot_tap:`WhatsApp पर पूछने के लिए किसी पीस पर टैप करें।`,bot_addr:`हम यहाँ हैं:`,bot_time:`दुकान का समय:`,bot_phone:`हमारा नंबर {0} है। आप WhatsApp पर भी बात कर सकते हैं।`,
+bot_order:`ऑर्डर करना आसान है। कपड़े कार्ट में जोड़ें और चेकआउट दबाएँ, या WhatsApp पर संदेश भेजें।`,bot_thanks:`धन्यवाद! आपका इंतज़ार रहेगा।`,
+bot_fallback:`माफ़ कीजिए, मैं समझ नहीं पाई। आप कलेक्शन, ऑफर, बजट या दुकान का पता पूछ सकते हैं, या दुकान मालिक से WhatsApp पर बात करें।`,
+lg_privacy:[[`हम क्या जानकारी लेते हैं`,`ऑर्डर करते समय हम आपका नाम, मोबाइल नंबर और डिलीवरी का पता लेते हैं। अगर आप समीक्षा लिखते हैं तो आपका नाम और समीक्षा भी रखी जाती है।`],[`हम इसका उपयोग कैसे करते हैं`,`आपकी जानकारी सिर्फ़ ऑर्डर पूरा करने, डिलीवरी करने, आपसे संपर्क करने और अपनी सेवा सुधारने के लिए इस्तेमाल होती है। हम आपकी जानकारी बेचते नहीं हैं।`],[`साझा करना और सुरक्षित रखना`,`आपकी जानकारी सिर्फ़ डिलीवरी में मदद करने वालों और ज़रूरत पड़ने पर भुगतान सेवा देने वालों से साझा होती है। इसे उतने समय तक ही रखा जाता है जितना ऑर्डर, वापसी और कानूनी रिकॉर्ड के लिए ज़रूरी है।`],[`आपके विकल्प`,`अपनी जानकारी सुधरवाने या हटवाने के लिए {phone} पर कॉल करें या WhatsApp पर संदेश भेजें।`]],
+lg_terms:[[`ऑर्डर`,`ऑर्डर तभी पक्का माना जाएगा जब हम उसे स्वीकार कर लें। अगर कोई पीस स्टॉक में न हो या जानकारी साफ़ न हो तो हम ऑर्डर रद्द कर सकते हैं, और दिया गया भुगतान वापस कर देंगे।`],[`कीमतें`,`सभी कीमतें भारतीय रुपये में हैं और बिना सूचना के बदल सकती हैं। ऑर्डर करते समय दिखने वाली कीमत ही लागू होगी।`],[`प्रोडक्ट की फ़ोटो`,`स्क्रीन पर रंग थोड़ा अलग दिख सकता है। रंग या कपड़े को लेकर शक हो तो दुकान पर आएँ या WhatsApp पर पूछें।`],[`भुगतान`,`हम UPI, डिलीवरी पर नकद और दुकान पर भुगतान स्वीकार करते हैं। UPI ऑर्डर भुगतान जाँचने के बाद पक्के होते हैं।`],[`विवाद`,`किसी भी विवाद का निपटारा बलिया, उत्तर प्रदेश के न्यायालयों में होगा।`]],
+lg_returns:[[`बदलने और लौटाने की अवधि`,`सामान न पहना गया हो, न धुला हो और टैग लगे हों तो डिलीवरी के {days} दिन के अंदर बदलने या लौटाने के लिए कह सकते हैं।`],[`क्या वापस नहीं होगा`,`नाप से सिला हुआ, बदलवाया हुआ या फ़ाइनल सेल वाला सामान वापस नहीं होगा।`],[`खराब या गलत सामान`,`खराब या गलत सामान मिले तो 48 घंटे के अंदर फ़ोटो के साथ बताएँ, हम बदल देंगे या पैसे लौटा देंगे।`],[`रिफ़ंड`,`UPI भुगतान का रिफ़ंड सामान मिलने के 5 से 7 कामकाजी दिनों में उसी खाते में जाएगा। डिलीवरी पर नकद वाले ऑर्डर का रिफ़ंड आपके बताए UPI खाते में होगा।`],[`वापसी कैसे शुरू करें`,`{phone} पर कॉल करें या ऑर्डर नंबर के साथ WhatsApp पर संदेश भेजें।`]],
+lg_shipping:[[`हम कहाँ डिलीवरी करते हैं`,`हम {area} में डिलीवरी करते हैं। ऑर्डर पक्का होने के बाद आमतौर पर {dd} कामकाजी दिनों में पहुँचता है।`],[`डिलीवरी शुल्क`,`डिलीवरी का शुल्क ₹{fee} है। ₹{free} या उससे ऊपर के ऑर्डर पर डिलीवरी मुफ़्त है। दुकान से लेना हमेशा मुफ़्त है।`],[`डिलीवरी से पहले`,`डिलीवरी से पहले हम फ़ोन या संदेश करेंगे। कृपया अपना फ़ोन चालू रखें।`],[`अगर संपर्क न हो पाए`,`दो बार कोशिश के बाद भी संपर्क न हो तो ऑर्डर दुकान पर लौट सकता है, तब हम आपसे संपर्क करेंगे।`]]
+};
+T.bho={
+welcome:`स्वागत बा`,tagline:`रसड़ा के आपन शाही शान`,lead:`बियाह, तिहुआर आ रोज के पहिरावा खातिर चुनल कपड़ा, सीधे रसड़ा के दिल में।`,
+shop_now:`कलेक्शन देखीं`,directions:`रास्ता देखीं`,fact3:`हर हफ्ता नया डिज़ाइन`,nav_about:`हमनी के बारे में`,nav_track:`ऑर्डर के हाल देखीं`,
+announce:`बियाह के मौसम के नया कलेक्शन आ गइल बा। आजुए दुकान पर आईं।`,
+coll_title:`हमनी के कलेक्शन`,coll_sub:`कवनो पीस पर टैप करीं, डिटेल देखीं, टोकरी में डालीं भा विशलिस्ट में रखीं।`,search_ph:`कपड़ा खोजीं`,all:`सभे`,
+p_any:`कवनो दाम`,p_1:`₹1,000 से कम`,p_4:`₹6,000 से ऊपर`,s_any:`कवनो साइज़`,f_stock:`खाली मौजूद वाला`,
+sort_new:`नया पहिले`,sort_lo:`दाम: कम से बेसी`,sort_hi:`दाम: बेसी से कम`,sort_rate:`सबसे बढ़िया रेटिंग`,sort_off:`सबसे बेसी छूट`,clear:`फ़िल्टर हटाईं`,
+showing:`{0} प्रोडक्ट`,no_results:`कुछ ना मिलल। कुछ फ़िल्टर हटा के देखीं।`,
+add_cart:`टोकरी में डालीं`,buy_now:`अबहीं खरीदीं`,sold_out:`स्टॉक खतम`,only_left:`खाली {0} बाकी बा`,pick_size:`पहिले साइज़ चुनीं।`,added:`टोकरी में डाल दिहल गइल`,
+wish_add:`विशलिस्ट में रखीं`,wish_rem:`विशलिस्ट से हटाईं`,ask_wa:`WhatsApp पर पूछीं`,out_msg:`अबहीं स्टॉक में नइखे। हमनी से पूछीं, जल्दी आ सकेला।`,
+rev_none:`अबहीं कवनो समीक्षा नइखे। पहिला समीक्षा रउआ लिखीं।`,rev_count:`{0} समीक्षा`,rev_write:`समीक्षा लिखीं`,rev_name:`रउआ के नाम`,rev_rating:`रउआ के रेटिंग`,
+rev_text:`रउआ के समीक्षा (मन होखे त)`,rev_send:`समीक्षा भेजीं`,rev_thanks:`रउआ के समीक्षा खातिर धन्यवाद!`,rev_need:`आपन नाम आ स्टार रेटिंग दीं।`,
+cart:`रउआ के टोकरी`,cart_empty:`रउआ के टोकरी खाली बा।`,wish_empty:`अबहीं कुछ नइखे रखल। कवनो कपड़ा पर दिल के निशान दबाईं।`,to_cart:`टोकरी में डालीं`,
+subtotal:`कुल दाम`,coupon_ok:`कूपन लागल: {0}% छूट`,coupon_bad:`ई कोड ठीक नइखे।`,apply:`लगाईं`,remove:`हटाईं`,cont:`खरीदारी जारी राखीं`,
+co_details:`रउआ के जानकारी`,co_addr:`पता`,co_city:`शहर भा गाँव`,co_note:`नोट (मन होखे त)`,co_home:`घरे पर डिलीवरी`,co_pick:`दुकान से ले जाईं (मुफ़्त)`,co_cod:`डिलीवरी पर नकद`,co_store:`दुकान पर भुगतान`,
+co_card:`कार्ड आ नेट बैंकिंग (जल्दी आई)`,co_upi_help:`{0} UPI ID {1} पर भेजीं। फेर नीचे UPI रेफ़रेंस नंबर डालीं। भुगतान जाँचला के बाद हमनी ऑर्डर पक्का करब।`,
+copy:`कॉपी`,copied:`कॉपी हो गइल`,open_upi:`UPI ऐप खोलीं`,co_place:`ऑर्डर करीं`,co_summary:`ऑर्डर के सार`,co_err:`सभ जरूरी जानकारी भरीं।`,
+co_err_phone:`सही 10 अंक के मोबाइल नंबर डालीं।`,co_err_pin:`सही 6 अंक के पिन कोड डालीं।`,co_err_stock:`कुछ सामान रउआ के चुनल मात्रा में नइखे।`,
+ty_title:`धन्यवाद, {0}!`,ty_body:`रउआ के ऑर्डर {0} हो गइल बा। हमनी जल्दी पक्का करब।`,ty_upi:`रउआ के UPI भुगतान जाँचला के बाद हमनी ऑर्डर पक्का करब।`,
+ty_cod:`ऑर्डर पहुँचला पर कृपा करके {0} तइयार राखीं।`,ty_store:`कृपा करके आपन ऑर्डर हमनी के दुकान से लीं आ उहईं भुगतान करीं।`,ty_wa:`ऑर्डर के जानकारी WhatsApp पर भेजीं`,
+ty_note:`WhatsApp पर भेजला से हमनी जल्दी पक्का कर पाइला।`,ty_love:`द क्वीन फ़ैशन से खरीदारी खातिर धन्यवाद।`,
+tr_title:`आपन ऑर्डर देखीं`,tr_find:`ऑर्डर खोजीं`,tr_none:`एह जानकारी से कवनो ऑर्डर ना मिलल।`,tr_recent:`रउआ के हाल के ऑर्डर`,
+st_placed:`ऑर्डर मिलल`,st_confirmed:`पक्का भइल`,st_packed:`पैक भइल`,st_out:`डिलीवरी खातिर निकलल`,st_ready:`ले जाए खातिर तइयार`,st_delivered:`पहुँच गइल`,st_cancelled:`रद्द भइल`,
+tr_cancel:`ई ऑर्डर रद्द करीं`,tr_cancel_sure:`रद्द करे खातिर फेर टैप करीं`,tr_reason:`कारण: {0}`,tr_conf:`रउआ के ऑर्डर पक्का हो गइल। हमनी के साथे खरीदारी खातिर धन्यवाद!`,
+pay_pending:`भुगतान बाकी`,pay_paid:`भुगतान भइल`,pay_refund_due:`रिफ़ंड बाकी`,pay_refunded:`रिफ़ंड भइल`,
+reels_title:`हमनी के Instagram से`,reels_sub:`हमनी के नया रील्स देखीं आ जानीं कि कपड़ा पहिनला पर कइसन लागेला।`,reel_watch:`Instagram पर देखीं`,reel_follow:`Instagram पर हमनी के फ़ॉलो करीं`,
+about_title:`हमनी के बारे में`,about_text:`द क्वीन फ़ैशन रसड़ा के भगत सिंह मोड़ पर बा। इहाँ बियाह, तिहुआर आ रोज के पहिरावा खातिर चुनल कपड़ा सही दाम पर, भरोसा के साथे मिलेला।`,
+pil1_t:`रसड़ा में, रउआ के लगे`,pil1_d:`भगत सिंह मोड़ पर आके कपड़ा हाथ में लेके देखीं।`,pil2_t:`चुनल डिज़ाइन`,pil2_d:`हर मौका खातिर नया पीस आवत रहेला।`,
+pil3_t:`सीधे WhatsApp पर बात`,pil3_d:`पसंद के पीस भेजीं आ उपलब्धता आ दाम तुरंत जानीं।`,
+contact_title:`संपर्क करीं`,c_info:`दुकान के जानकारी`,c_visit:`दुकान पर आईं`,c_visit_d:`भगत सिंह मोड़, रसड़ा के रास्ता Google Maps पर देखीं।`,c_maps:`Google Maps खोलीं`,c_wa:`WhatsApp पर बात करीं`,
+hours_default:`रोज बिहान 10:30 से रात 9:00 बजे तक`,
+f_terms:`नियम आ शर्त`,f_returns:`वापसी आ रिफ़ंड नीति`,f_shipping:`शिपिंग आ डिलीवरी नीति`,f_back:`दुकान पर लौटीं`,
+lang_title:`आपन भाषा चुनीं`,lang_cont:`आगे बढ़ीं`,
+chat_btn:`पूछीं`,chat_ph:`इहाँ लिखीं...`,chat_send:`भेजीं`,q_budget:`हमार बजट`,q_addr:`दुकान के पता`,
+bot_greet:`प्रणाम! हम {0} के असिस्टेंट हईं। कपड़ा, ऑफर, दाम भा दुकान के बारे में पूछीं।`,bot_hi:`प्रणाम! आज का देखल चाहब?`,
+bot_offers:`अबहीं के ऑफर:`,bot_no_offer:`अबहीं कवनो खास ऑफर नइखे। नया ऑफर जल्दी आई।`,bot_cat:`{0} से कुछ बढ़िया पीस:`,bot_cat_none:`{0} में अबहीं कुछ नइखे।`,
+bot_budget:`{0} तक के विकल्प:`,bot_budget_none:`{0} तक कुछ ना मिलल। तनी बजट बढ़ा के देखीं।`,bot_ask_budget:`रउआ के बजट केतना बा? जइसे "2000" लिखीं।`,
+bot_new:`हमनी के सबसे नया पीस:`,bot_tap:`WhatsApp पर पूछे खातिर कवनो पीस पर टैप करीं।`,bot_addr:`हमनी इहाँ बानी जा:`,bot_time:`दुकान के समय:`,bot_phone:`हमनी के नंबर {0} बा। WhatsApp पर भी बात कर सकीले।`,
+bot_order:`ऑर्डर करल आसान बा। कपड़ा टोकरी में डालीं आ चेकआउट दबाईं, भा WhatsApp पर संदेश भेजीं।`,bot_thanks:`धन्यवाद! रउआ के इंतज़ार रही।`,
+bot_fallback:`माफ़ करीं, हम ना बूझ पइनी। कलेक्शन, ऑफर, बजट भा दुकान के पता पूछीं, भा दुकान मालिक से WhatsApp पर बात करीं।`,
+lg_privacy:[[`हमनी का जानकारी लेनी जा`,`ऑर्डर करत घरी हमनी रउआ के नाम, मोबाइल नंबर आ डिलीवरी के पता लेनी जा। अगर रउआ समीक्षा लिखीं त नाम आ समीक्षा भी रखल जाला।`],[`एकर इस्तेमाल कइसे होला`,`रउआ के जानकारी खाली ऑर्डर पूरा करे, डिलीवरी करे, रउआ से बात करे आ आपन सेवा सुधारे खातिर इस्तेमाल होला। हमनी रउआ के जानकारी बेचेनी ना।`],[`साझा करे आ सुरक्षित रखे के बात`,`रउआ के जानकारी खाली डिलीवरी में मदद करे वाला लोग आ जरूरत पड़ला पर भुगतान सेवा वाला से साझा होला। एकरा ओतने दिन रखल जाला जेतना ऑर्डर, वापसी आ कानूनी रिकॉर्ड खातिर जरूरी बा।`],[`रउआ के अधिकार`,`आपन जानकारी सुधरवावे भा हटवावे खातिर {phone} पर फोन करीं भा WhatsApp पर संदेश भेजीं।`]],
+lg_terms:[[`ऑर्डर`,`ऑर्डर तबे पक्का मानल जाई जब हमनी ओकरा के स्वीकार कर लीं। कवनो पीस स्टॉक में ना होखे भा जानकारी साफ़ ना होखे त हमनी ऑर्डर रद्द कर सकीले, आ दिहल भुगतान लौटा देब।`],[`दाम`,`सभ दाम भारतीय रुपया में बा आ बिना बतवले बदल सकेला। ऑर्डर करत घरी जवन दाम देखाला उहे लागू होई।`],[`प्रोडक्ट के फोटो`,`स्क्रीन पर रंग तनी अलग लाग सकेला। रंग भा कपड़ा पर शक होखे त दुकान पर आईं भा WhatsApp पर पूछीं।`],[`भुगतान`,`हमनी UPI, डिलीवरी पर नकद आ दुकान पर भुगतान लीले। UPI ऑर्डर भुगतान जाँचला के बाद पक्का होला।`],[`विवाद`,`कवनो विवाद के निपटारा बलिया, उत्तर प्रदेश के न्यायालय में होई।`]],
+lg_returns:[[`बदले आ लौटावे के अवधि`,`सामान ना पहिनल गइल होखे, ना धोवल होखे आ टैग लागल होखे त डिलीवरी के {days} दिन के भीतर बदले भा लौटावे खातिर कह सकीले।`],[`का वापस ना होई`,`नाप से सियल, बदलवावल भा फ़ाइनल सेल वाला सामान वापस ना होई।`],[`खराब भा गलत सामान`,`खराब भा गलत सामान मिले त 48 घंटा के भीतर फोटो के साथ बतावीं, हमनी बदल देब भा पइसा लौटा देब।`],[`रिफ़ंड`,`UPI भुगतान के रिफ़ंड सामान मिलला के 5 से 7 कामकाजी दिन में ओही खाता में जाई। डिलीवरी पर नकद वाला ऑर्डर के रिफ़ंड रउआ के बतावल UPI खाता में होई।`],[`वापसी कइसे शुरू करीं`,`{phone} पर फोन करीं भा ऑर्डर नंबर के साथे WhatsApp पर संदेश भेजीं।`]],
+lg_shipping:[[`हमनी कहाँ डिलीवरी करीले`,`हमनी {area} में डिलीवरी करीले। ऑर्डर पक्का भइला के बाद आमतौर पर {dd} कामकाजी दिन में पहुँचेला।`],[`डिलीवरी के शुल्क`,`डिलीवरी के शुल्क ₹{fee} बा। ₹{free} भा ओकरा ऊपर के ऑर्डर पर डिलीवरी मुफ़्त बा। दुकान से ले जाईं त हमेशा मुफ़्त।`],[`डिलीवरी से पहिले`,`डिलीवरी से पहिले हमनी फोन भा संदेश करब। कृपा करके आपन फोन चालू राखीं।`],[`अगर बात ना हो पावे`,`दू बेर कोशिश के बादो बात ना भइल त ऑर्डर दुकान पर लौट सकेला, तब हमनी रउआ से संपर्क करब।`]]
+};
+var CATL={'Lehenga':'लहंगा','Suit & Kurti':'सूट और कुर्ती','Saree':'साड़ी','Western':'वेस्टर्न','Kids':'बच्चों के कपड़े'};
+var DEF={
+  settings:{name:'The Queen Fashion',phone:'9452653597',whatsapp:'919452653597',address:'Bhagat Singh Mod, Near, Rasra, Uttar Pradesh 221712',
+    hours:'',tagline:'',announce:'',about:'',instagram:'https://www.instagram.com/thequeenfashionrasra/',maps:'https://www.google.com/maps/search/?api=1&query=25.8563503,83.8617518',
+    upi:'demo@upi',upiName:'The Queen Fashion',codOn:true,deliveryFee:60,freeAbove:2999,returnDays:7,deliveryDays:'2 to 5',area:'Rasra and nearby areas'},
+  accent:'#C9A24B',logo:'',pin:'1234',pinChanged:false,
+  categories:['Lehenga','Suit & Kurti','Saree','Western','Kids'],
+  products:[
+    {id:'d1',name:'Banarasi Silk Lehenga',nameHi:'बनारसी सिल्क लहंगा',cat:'Lehenga',price:8999,old:10999,badge:'Bestseller',stock:'',sizes:['Free Size'],desc:'Heavy silk lehenga with zari border, made for weddings and receptions.',descHi:'ज़री बॉर्डर वाला भारी सिल्क लहंगा, शादी और रिसेप्शन के लिए।',img:'',soldout:false,featured:true,sample:true},
+    {id:'d2',name:'Embroidered Anarkali Suit',nameHi:'कढ़ाई वाला अनारकली सूट',cat:'Suit & Kurti',price:3499,old:0,badge:'New',stock:'',sizes:['S','M','L','XL'],desc:'Hand-embroidered Anarkali with a matching dupatta.',descHi:'हाथ की कढ़ाई वाला अनारकली, दुपट्टे के साथ।',img:'',soldout:false,featured:false,sample:true},
+    {id:'d3',name:'Kanjivaram Style Saree',nameHi:'कांजीवरम स्टाइल साड़ी',cat:'Saree',price:5499,old:6499,badge:'Sale',stock:'',sizes:[],desc:'Soft silk saree with a contrast blouse piece.',descHi:'ब्लाउज़ पीस के साथ मुलायम सिल्क साड़ी।',img:'',soldout:false,featured:false,sample:true},
+    {id:'d4',name:'Cotton Printed Kurti Set',nameHi:'कॉटन प्रिंटेड कुर्ती सेट',cat:'Suit & Kurti',price:1299,old:0,badge:'',stock:'',sizes:['S','M','L','XL','XXL'],desc:'Comfortable cotton kurti with pants, ideal for everyday wear.',descHi:'रोज़ पहनने के लिए आरामदायक कॉटन कुर्ती, पैंट के साथ।',img:'',soldout:false,featured:false,sample:true},
+    {id:'d5',name:'Indo-Western Co-ord Set',nameHi:'इंडो-वेस्टर्न को-ऑर्ड सेट',cat:'Western',price:2299,old:2799,badge:'New',stock:'',sizes:['S','M','L'],desc:'Stylish co-ord set for parties and outings.',descHi:'पार्टी और घूमने के लिए स्टाइलिश को-ऑर्ड सेट।',img:'',soldout:false,featured:false,sample:true},
+    {id:'d6',name:'Bridal Net Lehenga',nameHi:'ब्राइडल नेट लहंगा',cat:'Lehenga',price:14999,old:0,badge:'Limited',stock:3,sizes:['Free Size'],desc:'Net lehenga with sequin work. Only a few pieces available.',descHi:'सीक्वेंस वर्क वाला नेट लहंगा, गिनती के पीस उपलब्ध।',img:'',soldout:false,featured:false,sample:true},
+    {id:'d7',name:'Little Queen Frock',nameHi:'लिटिल क्वीन फ्रॉक',cat:'Kids',price:999,old:0,badge:'',stock:'',sizes:['2-3 yrs','4-5 yrs','6-7 yrs'],desc:'Party frock for little girls.',descHi:'छोटी बच्चियों के लिए पार्टी फ्रॉक।',img:'',soldout:false,featured:false,sample:true},
+    {id:'d8',name:'Chiffon Party Saree',nameHi:'शिफॉन पार्टी साड़ी',cat:'Saree',price:2799,old:0,badge:'',stock:'',sizes:[],desc:'Light and elegant chiffon saree with a sequin border.',descHi:'सीक्वेंस बॉर्डर वाली हल्की और सुंदर शिफॉन साड़ी।',img:'',soldout:false,featured:false,sample:true}
+  ],
+  offers:[
+    {id:'o1',title:'Wedding Season Offer',titleHi:'शादी के मौसम का ऑफर',text:'10% off on lehenga and bridal collection. Use the code at checkout.',textHi:'लहंगा और ब्राइडल कलेक्शन पर 10% छूट। चेकआउट पर कोड लगाएँ।',code:'SHAADI10',percent:10,till:'This month',active:true,sample:true},
+    {id:'o2',title:'Welcome Gift',titleHi:'स्वागत उपहार',text:'A small gift with your first purchase.',textHi:'पहली खरीदारी पर छोटा सा तोहफ़ा।',code:'',percent:0,till:'While stocks last',active:true,sample:true}
+  ],
+  reels:[
+    {id:'r1',title:'Wedding lehenga collection',link:'https://www.instagram.com/thequeenfashionrasra/reels/',img:'',sample:true},
+    {id:'r2',title:'Daily wear kurti sets',link:'https://www.instagram.com/thequeenfashionrasra/reels/',img:'',sample:true},
+    {id:'r3',title:'New saree arrivals',link:'https://www.instagram.com/thequeenfashionrasra/reels/',img:'',sample:true},
+    {id:'r4',title:'Store tour',link:'https://www.instagram.com/thequeenfashionrasra/reels/',img:'',sample:true}
+  ],
+  reviews:[],orders:[]
+};
+function clone(o){return JSON.parse(JSON.stringify(o))}
+var mem=null;
+function loadS(){
+  try{var r=localStorage.getItem(KEY);if(r){var o=JSON.parse(r),d=clone(DEF);for(var k in o)d[k]=o[k];d.settings=Object.assign({},DEF.settings,o.settings||{});return d}}catch(e){}
+  return mem||clone(DEF);
+}
+var S=loadS();
+function save(){mem=S;try{localStorage.setItem(KEY,JSON.stringify(S));return true}catch(e){toast('Save nahi hua. Photos chhoti rakhein ya purane products hata dein.');return false}}
+var cust={cart:[],wish:[],lang:'en',chosen:false,orders:[]};
+try{var cr=localStorage.getItem(CKEY);if(cr)cust=Object.assign(cust,JSON.parse(cr))}catch(e){}
+function saveC(){try{localStorage.setItem(CKEY,JSON.stringify(cust))}catch(e){}}
+var tt;function toast(m){var t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},2600)}
+function getv(k){var v=T[cust.lang]&&T[cust.lang][k];if(v==null&&cust.lang==='bho')v=T.hi[k];if(v==null)v=T.en[k];return v==null?k:v}
+function tr(k){var a=[].slice.call(arguments,1);return String(getv(k)).replace(/\{(\d)\}/g,function(m,i){return a[i]!=null?a[i]:''})}
+function hex2rgb(h){h=h.replace('#','');return [parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)]}
+function mix(h,t,p){var a=hex2rgb(h),b=hex2rgb(t);return '#'+a.map(function(v,i){return Math.round(v*(1-p)+b[i]*p).toString(16).padStart(2,'0')}).join('')}
+function applyTheme(){var r=document.documentElement.style,a=S.accent||'#C9A24B';
+  r.setProperty('--gold',a);r.setProperty('--gold-deep',mix(a,'#000000',.4));r.setProperty('--gold-light',mix(a,'#ffffff',.45));
+  r.setProperty('--bg',mix(a,'#ffffff',.93));r.setProperty('--champ',mix(a,'#ffffff',.78));r.setProperty('--line',mix(a,'#ffffff',.6));r.setProperty('--card',mix(a,'#ffffff',.97))}
+function setLang(l){cust.lang=l;cust.chosen=true;saveC();document.documentElement.setAttribute('data-lang',l);document.documentElement.lang=l}
+
+var CROWN='<svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--gold-light)"/><stop offset=".5" style="stop-color:var(--gold)"/><stop offset="1" style="stop-color:var(--gold-deep)"/></linearGradient></defs><path d="M10 24l9 12 13-20 13 20 9-12-4 24H14z" fill="url(#gg)" stroke="var(--gold-deep)" stroke-width="1.2" stroke-linejoin="round"/><rect x="14" y="50" width="36" height="5" rx="2" fill="url(#gg)" stroke="var(--gold-deep)" stroke-width="1.2"/><circle cx="10" cy="22" r="3" fill="url(#gg)"/><circle cx="32" cy="13" r="3.2" fill="url(#gg)"/><circle cx="54" cy="22" r="3" fill="url(#gg)"/></svg>';
+var PAIRS=[['#F7E9C3','#E2C676'],['#F8E4D2','#DDAE8E'],['#FFF2D4','#EBD08B'],['#F3E6C4','#D6B25E'],['#FBEBD3','#E6BE86']];
+function catName(c){return cust.lang!=='en'&&CATL[c]?CATL[c]:c}
+function ph(p){var h=0,s=(p.id||'')+(p.cat||p.title||'');for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;var pr=PAIRS[h%PAIRS.length];
+  return '<div class="ph" style="--a:'+pr[0]+';--b:'+pr[1]+'"><div>'+CROWN+(p.cat?'<span>'+esc(catName(p.cat))+'</span>':'')+'</div></div>'}
+function pname(p){return cust.lang!=='en'&&p.nameHi?p.nameHi:p.name}
+function pdesc(p){return cust.lang!=='en'&&p.descHi?p.descHi:(p.desc||'')}
+function pic(p){return p.img?'<img src="'+p.img+'" alt="'+esc(pname(p)||p.title||'')+'" loading="lazy">':ph(p)}
+function logoHTML(){return S.logo?'<img src="'+S.logo+'" alt="'+esc(S.settings.name)+' logo">':CROWN}
+function waLink(msg,num){return 'https://wa.me/'+(num||S.settings.whatsapp)+'?text='+encodeURIComponent(msg)}
+function prod(id){return S.products.filter(function(p){return p.id===id})[0]}
+function soldOut(p){return p.soldout||(p.stock!==''&&p.stock!=null&&Number(p.stock)<=0)}
+function stockMax(p){return (p.stock===''||p.stock==null)?99:Number(p.stock)}
+function ratingOf(id){var r=S.reviews.filter(function(x){return x.pid===id}),n=r.length;return {n:n,avg:n?r.reduce(function(a,x){return a+x.rating},0)/n:0}}
+function starsHTML(v){return '<span class="stars" style="--r:'+(Math.round(v*10)/10)+'" role="img" aria-label="'+(Math.round(v*10)/10)+' / 5"></span>'}
+function activeOffers(){return S.offers.filter(function(o){return o.active})}
+function setting(k){var s=S.settings;if(s[k])return s[k];return tr({tagline:'tagline',announce:'announce',about:'about_text',hours:'hours_default'}[k])}
+function iconWA(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.8 8.5c.3 3 2.7 5.5 5.7 6l1.2-1.5-2-1-.8.8c-.8-.3-1.700-1.200-2-2l.8-.8-1-2z"/></svg>'}
+var HEART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.500S4 15.800 3 10.500A4.800 4.800 0 0 1 12 8a4.800 4.800 0 0 1 9 2.500C20 15.800 12 20.500 12 20.500z"/></svg>';
+var BAG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M5.500 8h13l1 12.500h-15z"/><path d="M9 8V6.500a3 3 0 0 1 6 0V8"/></svg>';
+
+var F={q:'',cat:'All',price:'',size:'',stock:false,sort:'new'};
+var ui={modal:null,drawer:null,chat:false,form:{},size:'',coupon:null,track:{id:'',phone:'',found:null,err:false},confirmCancel:false,chatScroll:false};
+var chatLog=[];
+function filtered(){
+  var q=F.q.trim().toLowerCase();
+  var l=S.products.filter(function(p){
+    if(F.cat!=='All'&&p.cat!==F.cat)return false;
+    if(q&&(p.name+' '+(p.nameHi||'')+' '+p.cat+' '+(p.desc||'')).toLowerCase().indexOf(q)<0)return false;
+    if(F.price){var r=F.price.split('-');if(p.price<Number(r[0])||p.price>Number(r[1]))return false}
+    if(F.size&&(p.sizes||[]).indexOf(F.size)<0)return false;
+    if(F.stock&&soldOut(p))return false;
+    return true});
+  if(F.sort==='lo')l.sort(function(a,b){return a.price-b.price});
+  if(F.sort==='hi')l.sort(function(a,b){return b.price-a.price});
+  if(F.sort==='rate')l.sort(function(a,b){var x=ratingOf(a.id),y=ratingOf(b.id);return y.avg-x.avg||y.n-x.n});
+  if(F.sort==='off')l.sort(function(a,b){return ((b.old>b.price)?(b.old-b.price)/b.old:0)-((a.old>a.price)?(a.old-a.price)/a.old:0)});
+  return l;
+}
+function cardHTML(p){
+  var r=ratingOf(p.id),w=cust.wish.indexOf(p.id)>-1,out=soldOut(p);
+  return '<article class="pc"><button class="pic" data-open="'+esc(p.id)+'" aria-label="'+esc(pname(p))+'">'+pic(p)+(out?'<span class="badge out">'+tr('sold_out')+'</span>':(p.badge?'<span class="badge">'+esc(p.badge)+'</span>':''))+'</button>'+
+  '<button class="heart" data-wish="'+esc(p.id)+'" aria-pressed="'+w+'" aria-label="'+tr(w?'wish_rem':'wish_add')+'">'+HEART+'</button>'+
+  '<div class="info"><span class="cat">'+esc(catName(p.cat))+'</span><h3>'+esc(pname(p))+'</h3><div class="rate">'+(r.n?starsHTML(r.avg)+' <span>'+(Math.round(r.avg*10)/10)+' ('+r.n+')</span>':'')+'</div>'+
+  '<div class="price">'+money(p.price)+(p.old>p.price?'<s>'+money(p.old)+'</s>':'')+'</div>'+
+  (out?'<button class="btn sm ghost" data-open="'+esc(p.id)+'">'+tr('ask_wa')+'</button>':'<button class="btn sm" data-add="'+esc(p.id)+'">'+tr('add_cart')+'</button>')+'</div></article>';
+}
+function renderChips(){var el=$('#chips');if(!el)return;
+  el.innerHTML='<button class="chip" aria-pressed="'+(F.cat==='All')+'" data-cat="All">'+tr('all')+'</button>'+S.categories.map(function(c){return '<button class="chip" aria-pressed="'+(F.cat===c)+'" data-cat="'+esc(c)+'">'+esc(catName(c))+'</button>'}).join('')}
+function renderGrid(){var l=filtered(),g=$('#grid'),c=$('#count');if(!g)return;
+  g.innerHTML=l.length?l.map(cardHTML).join(''):'<div class="empty" style="grid-column:1/-1">'+tr('no_results')+'</div>';
+  if(c)c.textContent=tr('showing',l.length)}
+function updateBadges(){var n=cust.cart.reduce(function(a,c){return a+c.qty},0),w=cust.wish.length;
+  [['#b-cart',n],['#b-wish',w]].forEach(function(x){var e=$(x[0]);if(e){e.textContent=x[1];e.hidden=!x[1]}})}
+function allSizes(){var s=[];S.products.forEach(function(p){(p.sizes||[]).forEach(function(z){if(s.indexOf(z)<0)s.push(z)})});return s}
+function langSwitch(){return '<div class="lang" role="group" aria-label="Language">'+[['en','EN'],['hi','हिं'],['bho','भोज']].map(function(l){return '<button data-lang-set="'+l[0]+'" aria-pressed="'+(cust.lang===l[0])+'">'+l[1]+'</button>'}).join('')+'</div>'}
+function headerHTML(full){
+  return '<header class="site"><div class="wrap head"><a class="brand" href="#" aria-label="'+esc(S.settings.name)+'"><span class="mark">'+logoHTML()+'</span><span><b>THE QUEEN</b><i>FASHION</i></span></a>'+
+  (full?'<nav class="main"><a href="#collection">'+tr('nav_collection')+'</a><a href="#offers">'+tr('nav_offers')+'</a><a href="#reels">'+tr('nav_reels')+'</a><a href="#about">'+tr('nav_about')+'</a><a href="#contact">'+tr('nav_contact')+'</a><button data-track-open>'+tr('nav_track')+'</button></nav>':'<span></span>')+
+  '<div class="tools">'+langSwitch()+'<button class="ib" data-wish-open aria-label="'+tr('wish')+'">'+HEART+'<span class="bd" id="b-wish" hidden></span></button><button class="ib" data-cart-open aria-label="'+tr('cart')+'">'+BAG+'<span class="bd" id="b-cart" hidden></span></button></div></div></header>';
+}
+function footerHTML(){var s=S.settings;
+  return '<footer class="site"><div class="wrap"><div class="links"><a href="#privacy">'+tr('f_privacy')+'</a><a href="#terms">'+tr('f_terms')+'</a><a href="#returns">'+tr('f_returns')+'</a><a href="#shipping">'+tr('f_shipping')+'</a></div><div class="row"><span>&copy; '+new Date().getFullYear()+' '+esc(s.name)+', Rasra</span><button class="linkbtn" data-admin>'+tr('f_owner')+'</button></div></div></footer>'}
+function pillar(path,t,d){return '<div class="pillar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+path+'</svg><div><b>'+t+'</b><span>'+d+'</span></div></div>'}
+function renderSite(){
+  var s=S.settings,feat=S.products.filter(function(p){return p.featured})[0]||S.products[0],offers=activeOffers();
+  var sizeOpts='<option value="">'+tr('s_any')+'</option>'+allSizes().map(function(z){return '<option'+(F.size===z?' selected':'')+'>'+esc(z)+'</option>'}).join('');
+  var priceOpts=[['',tr('p_any')],['0-999',tr('p_1')],['1000-3000',tr('p_2')],['3000-6000',tr('p_3')],['6001-9999999',tr('p_4')]].map(function(o){return '<option value="'+o[0]+'"'+(F.price===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('');
+  var sortOpts=[['new','sort_new'],['lo','sort_lo'],['hi','sort_hi'],['rate','sort_rate'],['off','sort_off']].map(function(o){return '<option value="'+o[0]+'"'+(F.sort===o[0]?' selected':'')+'>'+tr(o[1])+'</option>'}).join('');
+  var offerHTML=offers.map(function(o){var hi=cust.lang!=='en';return '<div class="offer"><h3>'+esc(hi&&o.titleHi?o.titleHi:o.title)+'</h3><p>'+esc(hi&&o.textHi?o.textHi:o.text)+'</p>'+(o.code?'<span class="code">'+esc(o.code)+'</span>':'')+(o.till?'<small>'+esc(o.till)+'</small>':'')+'</div>'}).join('');
+  var reelHTML=S.reels.map(function(r){return '<a class="reel" target="_blank" rel="noopener" href="'+esc(r.link)+'"><div class="rv">'+(r.img?'<img src="'+r.img+'" alt="">':ph({id:r.id,title:r.title}))+'<div class="play"><i></i></div><div class="cap">'+esc(r.title)+'</div></div><small>'+tr('reel_watch')+'</small></a>'}).join('');
+  $('#app').innerHTML='<div class="topbar"><span>'+esc(setting('announce'))+'</span></div>'+headerHTML(true)+
+  '<main id="top"><section class="wrap hero"><div><p class="script">'+tr('welcome')+'</p><h1 class="gold-text shimmer">'+esc(s.name)+'</h1><p class="lead">'+esc(setting('tagline'))+'. '+tr('lead')+'</p>'+
+  '<div class="cta"><a class="btn" href="#collection">'+tr('shop_now')+'</a><a class="btn ghost" target="_blank" rel="noopener" href="'+esc(s.maps)+'">'+tr('directions')+'</a></div>'+
+  '<ul class="facts"><li>'+tr('fact1')+'</li><li>'+tr('fact2')+'</li><li>'+tr('fact3')+'</li></ul></div>'+
+  '<div class="arch"><div class="frame">'+(feat?pic(feat):'')+'</div>'+(feat?'<span class="tag">'+esc(pname(feat))+' &middot; '+money(feat.price)+'</span>':'')+'</div></section>'+
+  '<section class="wrap block" id="collection"><div class="sec-head"><h2 class="gold-text">'+tr('coll_title')+'</h2><div class="orn"><i></i></div><p>'+tr('coll_sub')+'</p></div>'+
+  '<div class="fbar"><input type="search" id="f-q" placeholder="'+tr('search_ph')+'" aria-label="'+tr('search_ph')+'" value="'+esc(F.q)+'"><div class="chips" id="chips"></div>'+
+  '<div class="frow"><select id="f-price" class="fsel" aria-label="Price">'+priceOpts+'</select><select id="f-size" class="fsel" aria-label="Size">'+sizeOpts+'</select><select id="f-sort" class="fsel" aria-label="Sort">'+sortOpts+'</select>'+
+  '<label class="chk"><input type="checkbox" id="f-stock"'+(F.stock?' checked':'')+'> '+tr('f_stock')+'</label><button class="linkbtn" data-clearf>'+tr('clear')+'</button></div></div>'+
+  '<p class="count" id="count"></p><div class="grid" id="grid"></div></section>'+
+  (offers.length?'<section class="wrap block" id="offers"><div class="sec-head"><h2 class="gold-text">'+tr('nav_offers')+'</h2><div class="orn"><i></i></div></div><div class="offers">'+offerHTML+'</div></section>':'')+
+  (S.reels.length?'<section class="wrap block" id="reels"><div class="sec-head"><h2 class="gold-text">'+tr('reels_title')+'</h2><div class="orn"><i></i></div><p>'+tr('reels_sub')+'</p></div><div class="reels">'+reelHTML+'</div><div class="cta" style="justify-content:center;margin-top:10px"><a class="btn" target="_blank" rel="noopener" href="'+esc(s.instagram)+'">'+tr('reel_follow')+'</a></div></section>':'')+
+  '<section class="wrap block" id="about"><div class="about"><div><h2 class="gold-text">'+tr('about_title')+'</h2><p>'+esc(setting('about'))+'</p></div><div class="pillars">'+
+  pillar('<path d="M12 21s-7-6.200-7-11a7 7 0 0 1 14 0c0 4.800-7 11-7 11z"/><circle cx="12" cy="10" r="2.500"/>',tr('pil1_t'),tr('pil1_d'))+
+  pillar('<path d="M4 20l4-4m0 0l3-9 4 4-9 5zM14 6l4-2 2 4"/>',tr('pil2_t'),tr('pil2_d'))+
+  pillar('<path d="M21 12a8 8 0 0 1-12 7l-5 1.500 1.500-4.800A8 8 0 1 1 21 12z"/>',tr('pil3_t'),tr('pil3_d'))+'</div></div></section>'+
+  '<section class="wrap block" id="contact"><div class="sec-head"><h2 class="gold-text">'+tr('contact_title')+'</h2><div class="orn"><i></i></div></div><div class="contact">'+
+  '<div class="cbox"><h3>'+tr('c_info')+'</h3><dl style="margin:0"><div class="crow"><dt>'+tr('c_addr')+'</dt><dd>'+esc(s.address)+'</dd></div><div class="crow"><dt>'+tr('c_phone')+'</dt><dd><a href="tel:+91'+esc(s.phone.replace(/\D/g,'').slice(-10))+'">'+esc(s.phone)+'</a></dd></div><div class="crow"><dt>'+tr('c_hours')+'</dt><dd>'+esc(setting('hours'))+'</dd></div><div class="crow"><dt>Instagram</dt><dd><a target="_blank" rel="noopener" href="'+esc(s.instagram)+'">@thequeenfashionrasra</a></dd></div></dl></div>'+
+  '<div class="cbox mapcard"><h3>'+tr('c_visit')+'</h3><p style="margin:0;color:var(--ink-soft)">'+tr('c_visit_d')+'</p><a class="btn" target="_blank" rel="noopener" href="'+esc(s.maps)+'">'+tr('c_maps')+'</a><a class="btn wa" target="_blank" rel="noopener" href="'+waLink('Hello '+s.name+'!')+'">'+iconWA()+' '+tr('c_wa')+'</a></div></div></section></main>'+footerHTML();
+  renderChips();renderGrid();updateBadges();
+}
+var LEGAL={privacy:['f_privacy','lg_privacy'],terms:['f_terms','lg_terms'],returns:['f_returns','lg_returns'],shipping:['f_shipping','lg_shipping']};
+function fill(t){var s=S.settings;return t.replace(/\{phone\}/g,s.phone).replace(/\{days\}/g,s.returnDays).replace(/\{fee\}/g,s.deliveryFee).replace(/\{free\}/g,s.freeAbove).replace(/\{dd\}/g,s.deliveryDays).replace(/\{area\}/g,s.area)}
+function renderLegal(n){var L=LEGAL[n];
+  $('#app').innerHTML=headerHTML(false)+'<main class="wrap legal"><h1 class="gold-text">'+tr(L[0])+'</h1>'+getv(L[1]).map(function(x){return '<h2>'+fill(x[0])+'</h2><p>'+fill(x[1])+'</p>'}).join('')+'<p style="margin-top:30px"><a class="btn ghost" href="#">'+tr('f_back')+'</a></p></main>'+footerHTML();updateBadges()}
+/* ---------- cart and orders ---------- */
+function keyOf(pid,size){return pid+'~'+encodeURIComponent(size||'')}
+function cartLines(){return cust.cart.map(function(c){var p=prod(c.pid);return p?{p:p,size:c.size||'',qty:c.qty,line:p.price*c.qty,key:keyOf(c.pid,c.size)}:null}).filter(Boolean)}
+function totals(lines,pick){
+  var sub=lines.reduce(function(a,l){return a+l.line},0),disc=ui.coupon?Math.round(sub*ui.coupon.percent/100):0,net=sub-disc,fa=Number(S.settings.freeAbove||0);
+  var fee=(pick||!lines.length||(fa>0&&net>=fa))?0:Number(S.settings.deliveryFee||0);
+  return {sub:sub,disc:disc,fee:fee,total:net+fee};
+}
+function addToCart(pid,size,qty){
+  var p=prod(pid);if(!p||soldOut(p))return false;
+  var c=cust.cart.filter(function(x){return x.pid===pid&&(x.size||'')===(size||'')})[0];
+  var cur=cust.cart.filter(function(x){return x.pid===pid}).reduce(function(a,x){return a+x.qty},0);
+  if(cur+(qty||1)>stockMax(p)){toast(tr('only_left',stockMax(p)));return false}
+  if(c)c.qty+=qty||1;else cust.cart.push({pid:pid,size:size||'',qty:qty||1});
+  saveC();updateBadges();return true;
+}
+function applyCoupon(){
+  var code=(ui.form.coupon||'').trim().toUpperCase();if(!code)return;
+  var o=activeOffers().filter(function(x){return x.code&&x.code.toUpperCase()===code&&Number(x.percent)>0})[0];
+  if(o){ui.coupon={code:o.code,percent:Number(o.percent)};toast(tr('coupon_ok',o.percent))}else{ui.coupon=null;toast(tr('coupon_bad'))}
+  renderLayer();
+}
+function newOrderId(){var d=new Date();return 'QF'+String(d.getFullYear()).slice(2)+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2)+'-'+Math.floor(1000+Math.random()*9000)}
+function payMethods(pick){var m=['upi'];if(pick)m.push('store');else if(S.settings.codOn)m.push('cod');return m}
+function placeOrder(){
+  var f=ui.form,lines=cartLines(),pick=f.deliv==='pickup';
+  if(!lines.length){toast(tr('cart_empty'));return}
+  var phone=(f.phone||'').replace(/\D/g,'').slice(-10);
+  if(!(f.name||'').trim()||(!pick&&(!(f.addr||'').trim()||!(f.city||'').trim()))){toast(tr('co_err'));return}
+  if(phone.length!==10){toast(tr('co_err_phone'));return}
+  if(!pick&&!/^\d{6}$/.test((f.pin||'').trim())){toast(tr('co_err_pin'));return}
+  for(var i=0;i<lines.length;i++){var l=lines[i];if(soldOut(l.p)||l.qty>stockMax(l.p)){toast(tr('co_err_stock'));return}}
+  var methods=payMethods(pick),pay=methods.indexOf(f.pay)>-1?f.pay:methods[0],t=totals(lines,pick),now=new Date().toISOString();
+  var o={id:newOrderId(),created:now,status:'placed',deliv:pick?'pickup':'home',
+    items:lines.map(function(l){return {pid:l.p.id,name:l.p.name,price:l.p.price,qty:l.qty,size:l.size}}),
+    customer:{name:f.name.trim(),phone:phone,addr:(f.addr||'').trim(),city:(f.city||'').trim(),pin:(f.pin||'').trim(),note:(f.note||'').trim()},
+    pay:{method:pay,status:'pending',ref:(f.ref||'').trim()},sub:t.sub,disc:t.disc,fee:t.fee,total:t.total,coupon:ui.coupon?ui.coupon.code:'',lang:cust.lang,history:[{s:'placed',at:now}]};
+  lines.forEach(function(l){if(l.p.stock!==''&&l.p.stock!=null)l.p.stock=Math.max(0,Number(l.p.stock)-l.qty)});
+  S.orders.unshift(o);
+  if(!save()){S.orders.shift();return}
+  cust.cart=[];cust.orders.unshift(o.id);saveC();ui.coupon=null;ui.form={};ui.drawer=null;ui.modal={t:'thanks',id:o.id};
+  updateBadges();renderGrid();renderLayer();
+}
+function orderWAText(o){
+  return 'New order '+o.id+'\n'+o.customer.name+' ('+o.customer.phone+')\n'+o.items.map(function(i){return '- '+i.name+(i.size?' ['+i.size+']':'')+' x'+i.qty+' = '+money(i.price*i.qty)}).join('\n')+
+  '\nTotal: '+money(o.total)+'\nPayment: '+o.pay.method.toUpperCase()+(o.pay.ref?' (ref '+o.pay.ref+')':'')+'\n'+(o.deliv==='pickup'?'Store pickup':'Deliver to: '+o.customer.addr+', '+o.customer.city+' '+o.customer.pin)+(o.customer.note?'\nNote: '+o.customer.note:'');
+}
+function stLabel(s,o){if(s==='shipped')return tr(o&&o.deliv==='pickup'?'st_ready':'st_out');return tr('st_'+s)}
+function payLabel(o){return tr('pay_'+(o.pay.status==='refund_due'?'refund_due':o.pay.status))}
+function restock(o){if(o.restocked)return;o.items.forEach(function(i){var p=prod(i.pid);if(p&&p.stock!==''&&p.stock!=null)p.stock=Number(p.stock)+i.qty});o.restocked=true}
+function cancelOrder(id,reason,by){
+  var o=S.orders.filter(function(x){return x.id===id})[0];if(!o||o.status==='cancelled'||o.status==='delivered')return false;
+  o.status='cancelled';o.cancel={reason:reason||'',by:by,at:new Date().toISOString()};o.history.push({s:'cancelled',at:o.cancel.at,note:reason});
+  o.pay.status=o.pay.status==='paid'?'refund_due':'void';restock(o);return save();
+}
+function timeline(o){
+  if(o.status==='cancelled')return '<p><span class="pill red">'+tr('st_cancelled')+'</span> '+(o.cancel&&o.cancel.reason?tr('tr_reason',esc(o.cancel.reason)):'')+'</p>';
+  var steps=['placed','confirmed','packed','shipped','delivered'],idx=steps.indexOf(o.status);
+  return '<ol class="tl">'+steps.map(function(s,i){return '<li class="'+(i<=idx?'on':'')+'"><i></i>'+stLabel(s,o)+'</li>'}).join('')+'</ol>';
+}
+function summaryRows(t,pick){return '<div class="sum"><span>'+tr('subtotal')+'</span><span>'+money(t.sub)+'</span></div>'+(t.disc?'<div class="sum"><span>'+tr('discount')+'</span><span>-'+money(t.disc)+'</span></div>':'')+'<div class="sum"><span>'+tr('delivery')+'</span><span>'+(t.fee?money(t.fee):tr('free'))+'</span></div><div class="sum tot"><span>'+tr('total')+'</span><span>'+money(t.total)+'</span></div>'}
+
+/* ---------- overlays ---------- */
+function lineHTML(l){
+  return '<div class="li"><div class="th">'+pic(l.p)+'</div><div class="t"><b>'+esc(pname(l.p))+'</b><small>'+(l.size?tr('size')+': '+esc(l.size)+' &middot; ':'')+money(l.p.price)+'</small><br><span class="qty"><button data-qty="'+l.key+'|-1" aria-label="-">&minus;</button><span>'+l.qty+'</span><button data-qty="'+l.key+'|1" aria-label="+">+</button></span> <button class="linkbtn" data-rm="'+l.key+'">'+tr('remove')+'</button></div><b>'+money(l.line)+'</b></div>';
+}
+function cartDrawer(){
+  var lines=cartLines(),t=totals(lines,false);
+  return '<div class="dback" data-close-all></div><aside class="drawer" role="dialog" aria-modal="true" aria-label="'+tr('cart')+'"><div class="dhead"><b>'+tr('cart')+'</b><button class="x2" data-close-all aria-label="Close">&times;</button></div><div class="dbody">'+
+  (lines.length?lines.map(lineHTML).join('')+'<div class="coupon"><input class="fi" data-f="coupon" placeholder="'+tr('coupon')+'" value="'+esc(ui.form.coupon||'')+'" aria-label="'+tr('coupon')+'"><button class="btn sm" data-coupon>'+tr('apply')+'</button></div>'+(ui.coupon?'<p style="color:var(--ok);margin:8px 0 0">'+tr('coupon_ok',ui.coupon.percent)+'</p>':''):'<div class="empty">'+tr('cart_empty')+'</div>')+'</div>'+
+  (lines.length?'<div class="dfoot">'+summaryRows(t)+'<button class="btn block" data-checkout>'+tr('checkout')+'</button><button class="linkbtn" data-close-all>'+tr('cont')+'</button></div>':'<div class="dfoot"><button class="btn block" data-close-all>'+tr('cont')+'</button></div>')+'</aside>';
+}
+function wishDrawer(){
+  var items=cust.wish.map(prod).filter(Boolean);
+  return '<div class="dback" data-close-all></div><aside class="drawer" role="dialog" aria-modal="true" aria-label="'+tr('wish')+'"><div class="dhead"><b>'+tr('wish')+'</b><button class="x2" data-close-all aria-label="Close">&times;</button></div><div class="dbody">'+
+  (items.length?items.map(function(p){return '<div class="li"><div class="th">'+pic(p)+'</div><div class="t"><b>'+esc(pname(p))+'</b><small>'+money(p.price)+'</small><br><button class="btn sm" data-add="'+esc(p.id)+'" style="margin-top:6px">'+tr('to_cart')+'</button> <button class="linkbtn" data-wish="'+esc(p.id)+'">'+tr('remove')+'</button></div></div>'}).join(''):'<div class="empty">'+tr('wish_empty')+'</div>')+'</div></aside>';
+}
+function reviewsHTML(p){
+  var r=S.reviews.filter(function(x){return x.pid===p.id}).sort(function(a,b){return b.at<a.at?-1:1}),ra=ratingOf(p.id),f=ui.form,st=Number(f.rv_rating||0);
+  return '<div class="revs"><h4 style="font:600 24px var(--f-head);margin:0 0 6px">'+tr('rev_title')+'</h4>'+(ra.n?'<div class="rate">'+starsHTML(ra.avg)+' <b>'+(Math.round(ra.avg*10)/10)+'</b> &middot; '+tr('rev_count',ra.n)+'</div>':'<p style="color:var(--ink-soft);margin:0">'+tr('rev_none')+'</p>')+
+  r.slice(0,8).map(function(x){return '<div class="rev">'+starsHTML(x.rating)+' <b>'+esc(x.name)+'</b><small>'+new Date(x.at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})+'</small>'+(x.text?'<div>'+esc(x.text)+'</div>':'')+'</div>'}).join('')+
+  '<form id="rvform" style="margin-top:14px;display:grid;gap:10px"><b>'+tr('rev_write')+'</b><div class="sin" role="group" aria-label="'+tr('rev_rating')+'">'+[1,2,3,4,5].map(function(n){return '<button type="button" data-star="'+n+'" aria-pressed="'+(n<=st)+'" aria-label="'+n+'">&#9733;</button>'}).join('')+'</div>'+
+  '<input class="fi" data-f="rv_name" placeholder="'+tr('rev_name')+'" value="'+esc(f.rv_name||'')+'" maxlength="40" aria-label="'+tr('rev_name')+'"><textarea class="fi" data-f="rv_text" placeholder="'+tr('rev_text')+'" maxlength="300" aria-label="'+tr('rev_text')+'">'+esc(f.rv_text||'')+'</textarea><button class="btn sm" style="justify-self:start">'+tr('rev_send')+'</button></form></div>';
+}
+function productModal(id){
+  var p=prod(id);if(!p)return '';var out=soldOut(p),w=cust.wish.indexOf(p.id)>-1,ra=ratingOf(p.id),sz=p.sizes||[];
+  return '<div class="overlay" data-close-all role="dialog" aria-modal="true" aria-label="'+esc(pname(p))+'"><div class="modal pm"><button class="x" data-close-all aria-label="Close">&times;</button><div class="pic">'+pic(p)+'</div><div class="body"><span style="color:var(--ink-soft);font-size:14px">'+esc(catName(p.cat))+(p.badge?' &middot; '+esc(p.badge):'')+'</span><h3>'+esc(pname(p))+'</h3>'+
+  (ra.n?'<div class="rate">'+starsHTML(ra.avg)+' '+(Math.round(ra.avg*10)/10)+' ('+ra.n+')</div>':'')+'<div class="price">'+money(p.price)+(p.old>p.price?'<s>'+money(p.old)+'</s>':'')+'</div><p style="margin:0;color:var(--ink-soft)">'+esc(pdesc(p))+'</p>'+
+  (sz.length?'<div><b style="font-size:14px">'+tr('size')+'</b><div class="sizes" style="margin-top:6px">'+sz.map(function(z){return '<button data-size="'+encodeURIComponent(z)+'" aria-pressed="'+(ui.size===z)+'">'+esc(z)+'</button>'}).join('')+'</div></div>':'')+
+  (p.stock!==''&&p.stock!=null&&Number(p.stock)>0&&Number(p.stock)<=5?'<small style="color:var(--danger)">'+tr('only_left',p.stock)+'</small>':'')+
+  (out?'<p style="color:var(--danger);font-weight:500;margin:0">'+tr('out_msg')+'</p><a class="btn wa" target="_blank" rel="noopener" href="'+waLink('Hello! When will '+p.name+' be available?')+'">'+iconWA()+' '+tr('ask_wa')+'</a>':
+  '<button class="btn" data-addm="'+esc(p.id)+'">'+tr('add_cart')+'</button><button class="btn ghost" data-buy="'+esc(p.id)+'">'+tr('buy_now')+'</button><a class="btn wa sm" target="_blank" rel="noopener" href="'+waLink('Hello! I am interested in '+p.name+' ('+money(p.price)+').')+'">'+iconWA()+' '+tr('ask_wa')+'</a>')+
+  '<button class="linkbtn" data-wish="'+esc(p.id)+'">'+tr(w?'wish_rem':'wish_add')+'</button></div>'+reviewsHTML(p)+'</div></div>';
+}
+function checkoutModal(){
+  var f=ui.form,lines=cartLines(),pick=f.deliv==='pickup',methods=payMethods(pick),pay=methods.indexOf(f.pay)>-1?f.pay:methods[0],t=totals(lines,pick),s=S.settings;
+  function inp(k,l,type,full){return '<label class="fl'+(full?' full':'')+'">'+l+'<input class="fi" data-f="'+k+'" type="'+(type||'text')+'" value="'+esc(f[k]||'')+'"'+(k==='phone'?' inputmode="numeric" maxlength="14" autocomplete="tel"':'')+(k==='pin'?' inputmode="numeric" maxlength="6"':'')+'></label>'}
+  function radio(name,val,label,checked,dis){return '<label class="opt'+(dis?' dis':'')+'"><input type="radio" name="'+name+'" value="'+val+'" data-f="'+name+'"'+(checked?' checked':'')+(dis?' disabled':'')+'><span>'+label+'</span></label>'}
+  return '<div class="overlay" data-close-all role="dialog" aria-modal="true" aria-label="'+tr('checkout')+'"><div class="modal"><button class="x" data-close-all aria-label="Close">&times;</button><div class="pad"><h3 class="gold-text" style="margin:0 0 14px">'+tr('checkout')+'</h3>'+
+  '<form id="coform" style="display:grid;gap:16px"><div><b>'+tr('co_details')+'</b><div class="fg" style="margin-top:8px">'+inp('name',tr('co_name'),'text',false)+inp('phone',tr('co_phone'),'tel',false)+(pick?'':inp('addr',tr('co_addr'),'text',true)+inp('city',tr('co_city'))+inp('pin',tr('co_pin')))+inp('note',tr('co_note'),'text',true)+'</div></div>'+
+  '<div><b>'+tr('co_deliv')+'</b><div class="opts" style="margin-top:8px">'+radio('deliv','home',tr('co_home'),!pick)+radio('deliv','pickup',tr('co_pick'),pick)+'</div></div>'+
+  '<div><b>'+tr('co_pay')+'</b><div class="opts" style="margin-top:8px">'+radio('pay','upi',tr('co_upi'),pay==='upi')+(pick?radio('pay','store',tr('co_store'),pay==='store'):(s.codOn?radio('pay','cod',tr('co_cod'),pay==='cod'):''))+radio('pay','card',tr('co_card'),false,true)+'</div></div>'+
+  (pay==='upi'?'<div class="upi"><div>'+tr('co_upi_help',money(t.total),'<code>'+esc(s.upi)+'</code>')+'</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn sm ghost" data-copy="'+esc(s.upi)+'">'+tr('copy')+' UPI ID</button><a class="btn sm ghost" href="upi://pay?pa='+encodeURIComponent(s.upi)+'&pn='+encodeURIComponent(s.upiName)+'&am='+t.total+'&cu=INR">'+tr('open_upi')+'</a></div>'+inp('ref',tr('co_upi_ref'))+'</div>':'')+
+  '<div><b>'+tr('co_summary')+'</b><div style="margin:8px 0">'+lines.map(function(l){return '<div class="sum"><span>'+esc(pname(l.p))+(l.size?' ['+esc(l.size)+']':'')+' &times; '+l.qty+'</span><span>'+money(l.line)+'</span></div>'}).join('')+'</div>'+summaryRows(t,pick)+'</div>'+
+  '<button class="btn block">'+tr('co_place')+' &middot; '+money(t.total)+'</button></form></div></div></div>';
+}
+function thanksModal(id){
+  var o=S.orders.filter(function(x){return x.id===id})[0];if(!o)return '';var s=S.settings;
+  var note=o.pay.method==='upi'?tr('ty_upi'):(o.pay.method==='cod'?tr('ty_cod',money(o.total)):tr('ty_store'));
+  return '<div class="overlay" role="dialog" aria-modal="true" aria-label="'+tr('ty_title',esc(o.customer.name))+'"><div class="modal"><div class="pad thanks"><div class="tick" aria-hidden="true">&#10003;</div><h3 class="gold-text">'+tr('ty_title',esc(o.customer.name))+'</h3><p style="margin:8px 0">'+tr('ty_body','<b>'+o.id+'</b>')+'</p><p style="margin:0 0 6px;color:var(--ink-soft)">'+note+'</p>'+
+  '<div style="text-align:left;margin:14px 0;border-top:1px solid var(--line);padding-top:10px">'+o.items.map(function(i){return '<div class="sum"><span>'+esc(i.name)+(i.size?' ['+esc(i.size)+']':'')+' &times; '+i.qty+'</span><span>'+money(i.price*i.qty)+'</span></div>'}).join('')+'<div class="sum tot"><span>'+tr('total')+'</span><span>'+money(o.total)+'</span></div></div>'+
+  '<a class="btn wa block" target="_blank" rel="noopener" href="'+waLink(orderWAText(o))+'">'+iconWA()+' '+tr('ty_wa')+'</a><p style="font-size:13px;color:var(--ink-soft);margin:8px 0 14px">'+tr('ty_note')+'</p><p style="margin:0 0 14px;font-family:var(--f-head);font-size:20px">'+tr('ty_love')+'</p><button class="btn ghost" data-close-all>'+tr('cont')+'</button></div></div></div>';
+}
+function trackModal(){
+  var tk=ui.track,o=tk.found?S.orders.filter(function(x){return x.id===tk.found})[0]:null,recent=cust.orders.slice(0,4);
+  var body='';
+  if(o){body='<div style="margin-top:14px"><b>'+o.id+'</b> <span class="pill '+(o.status==='cancelled'?'red':'')+'">'+stLabel(o.status,o)+'</span> <span class="pill">'+payLabel(o)+'</span>'+timeline(o)+
+    (o.status==='confirmed'||o.status==='packed'||o.status==='shipped'||o.status==='delivered'?'<p style="color:var(--ok);font-weight:500">'+tr('tr_conf')+'</p>':'')+
+    o.items.map(function(i){return '<div class="sum"><span>'+esc(i.name)+(i.size?' ['+esc(i.size)+']':'')+' &times; '+i.qty+'</span><span>'+money(i.price*i.qty)+'</span></div>'}).join('')+'<div class="sum tot"><span>'+tr('total')+'</span><span>'+money(o.total)+'</span></div>'+
+    (o.status==='placed'?'<button class="btn danger sm" style="margin-top:12px" data-cancel-mine="'+o.id+'">'+tr(ui.confirmCancel?'tr_cancel_sure':'tr_cancel')+'</button>':'')+'</div>'}
+  else if(tk.err)body='<p style="color:var(--danger)">'+tr('tr_none')+'</p>';
+  return '<div class="overlay" data-close-all role="dialog" aria-modal="true" aria-label="'+tr('tr_title')+'"><div class="modal"><button class="x" data-close-all aria-label="Close">&times;</button><div class="pad"><h3 class="gold-text" style="margin:0 0 12px">'+tr('tr_title')+'</h3>'+
+  '<form id="trform" class="fg"><label class="fl">'+tr('tr_id')+'<input class="fi" data-f="tk_id" value="'+esc(tk.id)+'" placeholder="QF261116-1234"></label><label class="fl">'+tr('co_phone')+'<input class="fi" data-f="tk_phone" inputmode="numeric" value="'+esc(tk.phone)+'"></label><div class="full"><button class="btn sm">'+tr('tr_find')+'</button></div></form>'+
+  (recent.length?'<p style="margin:12px 0 0;font-size:14px;color:var(--ink-soft)">'+tr('tr_recent')+': '+recent.map(function(r){return '<button class="linkbtn" data-pickid="'+r+'" style="margin-right:10px">'+r+'</button>'}).join('')+'</p>':'')+body+'</div></div></div>';
+}
+function langModal(){
+  var L=[['en','English','Default',"font-family:'Cormorant Garamond',serif;font-weight:600"],['hi','हिन्दी','Hindi',"font-family:'Tiro Devanagari Hindi',serif"],['bho','भोजपुरी','Bhojpuri',"font-family:'Yatra One',serif"]];
+  return '<div class="overlay" role="dialog" aria-modal="true" aria-label="Language"><div class="modal"><div class="pad thanks"><div style="width:56px;margin:0 auto 8px">'+CROWN+'</div><h3 class="gold-text" style="font-size:34px">Choose your language</h3><p style="margin:4px 0 0;color:var(--ink-soft);font-family:\'Tiro Devanagari Hindi\',serif">अपनी भाषा चुनें &middot; आपन भाषा चुनीं</p>'+
+  '<div class="langpick">'+L.map(function(l){return '<button data-pick-lang="'+l[0]+'" aria-pressed="'+(cust.lang===l[0])+'" style="'+l[3]+'">'+l[1]+'<small>'+l[2]+'</small></button>'}).join('')+'</div></div></div></div>';
+}
+/* ---------- chat assistant ---------- */
+function plines(arr){return arr.map(function(p){return '<a class="pl" target="_blank" rel="noopener" href="'+waLink('Hello! I am interested in '+p.name+' ('+money(p.price)+').')+'"><span>'+esc(pname(p))+'</span><span>'+money(p.price)+'</span></a>'}).join('')}
+function reply(raw){
+  var t=raw.toLowerCase(),s=S.settings,ps=S.products.filter(function(p){return !soldOut(p)}),num=(t.match(/(\d[\d,]{2,6})/)||[])[1];
+  if(/^(hi+|hello|hey|namaste|namaskar|hlo)\b|^(नमस्ते|प्रणाम)/.test(t))return tr('bot_hi');
+  if(/offer|discount|sale|chhoot|chhut|scheme|ऑफर|छूट/.test(t)){var o=activeOffers();return o.length?tr('bot_offers')+'<br>'+o.map(function(x){return '&bull; <b>'+esc(cust.lang!=='en'&&x.titleHi?x.titleHi:x.title)+'</b>'+(x.code?' ('+esc(x.code)+')':'')}).join('<br>'):tr('bot_no_offer')}
+  var c=S.categories.filter(function(x){return t.indexOf(x.toLowerCase().split(' ')[0])>-1||(CATL[x]&&t.indexOf(CATL[x].split(' ')[0])>-1)})[0];
+  if(c){var l=ps.filter(function(p){return p.cat===c}).slice(0,5);return l.length?tr('bot_cat',esc(catName(c)))+plines(l)+tr('bot_tap'):tr('bot_cat_none',esc(catName(c)))}
+  if(num&&!/^\d{10}$/.test(num)){var n=Number(num.replace(/,/g,'')),l2=ps.filter(function(p){return p.price<=n}).sort(function(a,b){return b.price-a.price}).slice(0,5);return l2.length?tr('bot_budget',money(n))+plines(l2):tr('bot_budget_none',money(n))}
+  if(/new|naya|naye|arrival|latest|collection|नया|नई|कलेक्शन/.test(t))return tr('bot_new')+plines(ps.slice(0,5))+tr('bot_tap');
+  if(/budget|price|daam|rate|kimat|kitne|बजट|दाम|कीमत/.test(t))return tr('bot_ask_budget');
+  if(/address|location|kahan|kaha|where|map|pata|raasta|पता|कहाँ|कहां|रास्ता/.test(t))return tr('bot_addr')+'<br>'+esc(s.address)+'<br><a target="_blank" rel="noopener" href="'+esc(s.maps)+'" style="color:var(--gold-deep);font-weight:500">Google Maps</a>';
+  if(/time|timing|open|khula|khule|band|samay|baje|समय|टाइम|खुला/.test(t))return tr('bot_time')+' '+esc(setting('hours'));
+  if(/call|phone|number|contact|sampark|फोन|फ़ोन|नंबर|संपर्क/.test(t))return tr('bot_phone','<b>'+esc(s.phone)+'</b>')+'<br><a target="_blank" rel="noopener" href="'+waLink('Hello '+s.name+'!')+'" style="color:var(--gold-deep);font-weight:500">WhatsApp</a>';
+  if(/order|buy|kharid|delivery|lena|chahiye|ऑर्डर|खरीद/.test(t))return tr('bot_order');
+  if(/thank|shukriya|dhanyavad|धन्यवाद|शुक्रिया/.test(t))return tr('bot_thanks');
+  return tr('bot_fallback')+'<br><a target="_blank" rel="noopener" href="'+waLink('Hello! '+raw)+'" style="color:var(--gold-deep);font-weight:500">WhatsApp</a>';
+}
+function chatHTML(){
+  if(!chatLog.length)chatLog.push({b:1,h:tr('bot_greet',esc(S.settings.name))});
+  return '<div class="chat" role="dialog" aria-label="Chat"><div class="ch"><span style="width:36px;height:36px;display:block">'+CROWN+'</span><div><b>'+tr('chat_name')+'</b></div><button data-chat-close aria-label="Close">&times;</button></div><div class="msgs" aria-live="polite">'+chatLog.map(function(m){return '<div class="m '+(m.b?'bot':'me')+'">'+m.h+'</div>'}).join('')+'</div>'+
+  '<div class="quick">'+[['q_new','new'],['q_offers','offer'],['q_budget','budget'],['q_addr','address'],['q_time','timing']].map(function(c){return '<button type="button" data-q="'+c[1]+'">'+tr(c[0])+'</button>'}).join('')+'</div><form id="chatform"><input id="chatinput" placeholder="'+tr('chat_ph')+'" autocomplete="off" aria-label="'+tr('chat_ph')+'"><button>'+tr('chat_send')+'</button></form></div>';
+}
+function ask(q,shown){if(!q.trim())return;chatLog.push({b:0,h:esc(shown||q)});chatLog.push({b:1,h:reply(q)});ui.chatScroll=true;renderLayer();var i=$('#chatinput');if(i)i.focus()}
+function renderLayer(){
+  var sc={m:0,d:0},a=$('#layer .modal');if(a)sc.m=a.scrollTop;a=$('#layer .dbody');if(a)sc.d=a.scrollTop;
+  var h='',m=ui.modal;
+  if(m){h+=m.t==='lang'?langModal():m.t==='product'?productModal(m.id):m.t==='checkout'?checkoutModal():m.t==='thanks'?thanksModal(m.id):trackModal()}
+  if(ui.drawer)h+=ui.drawer==='cart'?cartDrawer():wishDrawer();
+  h+=ui.chat?chatHTML():((route()===''&&!m)?'<button class="fab" data-chat>'+iconWA().replace('width="18" height="18"','width="24" height="24"')+' '+tr('chat_btn')+'</button>':'');
+  $('#layer').innerHTML=h;
+  a=$('#layer .modal');if(a)a.scrollTop=sc.m;a=$('#layer .dbody');if(a)a.scrollTop=sc.d;
+  a=$('#layer .msgs');if(a&&ui.chatScroll){a.scrollTop=a.scrollHeight;ui.chatScroll=false}
+  document.body.style.overflow=(m||ui.drawer)?'hidden':'';
+}
+/* ---------- router and site events ---------- */
+var SPECIAL=['admin','privacy','terms','returns','shipping'],curRoute='';
+function route(){var h=location.hash.slice(1);return SPECIAL.indexOf(h)>-1?h:''}
+function go(){
+  curRoute=route();var r=curRoute;
+  if(r==='admin'){ui.modal=null;ui.drawer=null;ui.chat=false;document.body.style.overflow='';$('#layer').innerHTML='';renderAdmin()}
+  else if(LEGAL[r]){renderLegal(r);renderLayer()}
+  else{renderSite();if(!cust.chosen&&!ui.modal)ui.modal={t:'lang'};renderLayer()}
+  window.scrollTo(0,0);
+}
+function rerender(){if(LEGAL[route()])renderLegal(route());else renderSite();renderLayer()}
+function changeLang(l){setLang(l);chatLog=[];rerender()}
+function openProduct(id){var p=prod(id);ui.modal={t:'product',id:id};ui.size=(p&&(p.sizes||[]).length===1)?p.sizes[0]:'';ui.form.rv_rating=0;ui.form.rv_text='';renderLayer()}
+document.addEventListener('click',function(e){
+  if(route()==='admin')return;
+  var t=e.target,x,p;
+  if(x=t.closest('[data-lang-set]')){changeLang(x.getAttribute('data-lang-set'));return}
+  if(x=t.closest('[data-pick-lang]')){setLang(x.getAttribute('data-pick-lang'));chatLog=[];ui.modal=null;rerender();return}
+  if(x=t.closest('[data-cat]')){F.cat=x.getAttribute('data-cat');renderChips();renderGrid();return}
+  if(t.closest('[data-clearf]')){F={q:'',cat:'All',price:'',size:'',stock:false,sort:'new'};renderSite();return}
+  if(x=t.closest('[data-open]')){openProduct(x.getAttribute('data-open'));return}
+  if(x=t.closest('[data-wish]')){var id=x.getAttribute('data-wish'),i=cust.wish.indexOf(id);if(i>-1)cust.wish.splice(i,1);else cust.wish.push(id);saveC();updateBadges();renderGrid();renderLayer();return}
+  if(x=t.closest('[data-add]')){p=prod(x.getAttribute('data-add'));if(!p)return;
+    if((p.sizes||[]).length>1){openProduct(p.id);toast(tr('pick_size'));return}
+    if(addToCart(p.id,(p.sizes||[])[0]||'',1)){toast(tr('added'));if(ui.drawer)renderLayer()}return}
+  if(x=t.closest('[data-size]')){ui.size=decodeURIComponent(x.getAttribute('data-size'));renderLayer();return}
+  if(x=t.closest('[data-addm],[data-buy]')){var pid=x.getAttribute('data-addm')||x.getAttribute('data-buy');p=prod(pid);
+    if((p.sizes||[]).length&&!ui.size){toast(tr('pick_size'));return}
+    if(!addToCart(pid,ui.size,1))return;
+    if(x.hasAttribute('data-buy')){ui.modal={t:'checkout'};ui.form.deliv=ui.form.deliv||'home';renderLayer()}else toast(tr('added'));return}
+  if(t.closest('[data-cart-open]')){ui.drawer='cart';renderLayer();return}
+  if(t.closest('[data-wish-open]')){ui.drawer='wish';renderLayer();return}
+  var cb=t.closest('button[data-close-all]');
+  if(cb||t.hasAttribute('data-close-all')){ui.modal=null;ui.drawer=null;ui.confirmCancel=false;renderLayer();return}
+  if(x=t.closest('[data-qty]')){var a=x.getAttribute('data-qty').split('|'),k=a[0].split('~'),c=cust.cart.filter(function(c){return c.pid===k[0]&&(c.size||'')===decodeURIComponent(k[1]||'')})[0];
+    if(c){var pp=prod(c.pid),n=c.qty+Number(a[1]);if(n>stockMax(pp)){toast(tr('only_left',stockMax(pp)));return}if(n<1)cust.cart.splice(cust.cart.indexOf(c),1);else c.qty=n;saveC();updateBadges();renderLayer()}return}
+  if(x=t.closest('[data-rm]')){var k2=x.getAttribute('data-rm').split('~');cust.cart=cust.cart.filter(function(c){return !(c.pid===k2[0]&&(c.size||'')===decodeURIComponent(k2[1]||''))});saveC();updateBadges();renderLayer();return}
+  if(t.closest('[data-coupon]')){applyCoupon();return}
+  if(t.closest('[data-checkout]')){ui.modal={t:'checkout'};ui.drawer=null;ui.form.deliv=ui.form.deliv||'home';renderLayer();return}
+  if(x=t.closest('[data-copy]')){var v=x.getAttribute('data-copy');try{navigator.clipboard.writeText(v).then(function(){toast(tr('copied'))},function(){toast(v)})}catch(er){toast(v)}return}
+  if(x=t.closest('[data-star]')){ui.form.rv_rating=Number(x.getAttribute('data-star'));renderLayer();return}
+  if(t.closest('[data-track-open]')){ui.modal={t:'track'};renderLayer();return}
+  if(x=t.closest('[data-pickid]')){var oid=x.getAttribute('data-pickid');ui.track={id:oid,phone:'',found:oid,err:false};ui.confirmCancel=false;renderLayer();return}
+  if(x=t.closest('[data-cancel-mine]')){if(ui.confirmCancel){cancelOrder(x.getAttribute('data-cancel-mine'),'Cancelled by customer','customer');ui.confirmCancel=false;toast(tr('st_cancelled'))}else ui.confirmCancel=true;renderLayer();return}
+  if(t.closest('[data-chat]')){ui.chat=true;renderLayer();return}
+  if(t.closest('[data-chat-close]')){ui.chat=false;renderLayer();return}
+  if(x=t.closest('[data-q]')){ask(x.getAttribute('data-q'),x.textContent);return}
+  if(t.closest('[data-admin]')){location.hash='admin';return}
+});
+document.addEventListener('input',function(e){
+  if(route()==='admin')return;var el=e.target;
+  if(el.id==='f-q'){F.q=el.value;renderGrid();return}
+  var k=el.getAttribute&&el.getAttribute('data-f');if(!k||el.type==='radio')return;
+  if(k==='tk_id'){ui.track.id=el.value;return}if(k==='tk_phone'){ui.track.phone=el.value;return}
+  ui.form[k]=el.value;
+});
+document.addEventListener('change',function(e){
+  if(route()==='admin')return;var el=e.target;
+  if(el.id==='f-price'){F.price=el.value;renderGrid();return}
+  if(el.id==='f-size'){F.size=el.value;renderGrid();return}
+  if(el.id==='f-sort'){F.sort=el.value;renderGrid();return}
+  if(el.id==='f-stock'){F.stock=el.checked;renderGrid();return}
+  if(el.type==='radio'&&el.getAttribute('data-f')){ui.form[el.getAttribute('data-f')]=el.value;renderLayer()}
+});
+document.addEventListener('submit',function(e){
+  if(route()==='admin')return;var id=e.target.id;
+  if(id==='chatform'){e.preventDefault();ask($('#chatinput').value);return}
+  if(id==='coform'){e.preventDefault();placeOrder();return}
+  if(id==='rvform'){e.preventDefault();var f=ui.form,p=ui.modal&&prod(ui.modal.id);
+    if(!p||!(f.rv_name||'').trim()||!f.rv_rating){toast(tr('rev_need'));return}
+    S.reviews.push({id:'rv'+Date.now().toString(36),pid:p.id,name:f.rv_name.trim(),rating:Number(f.rv_rating),text:(f.rv_text||'').trim(),at:new Date().toISOString()});
+    if(save()){f.rv_rating=0;f.rv_text='';toast(tr('rev_thanks'));renderGrid();renderLayer()}return}
+  if(id==='trform'){e.preventDefault();var tk=ui.track,idq=(tk.id||'').trim().toUpperCase(),ph=(tk.phone||'').replace(/\D/g,'').slice(-10);
+    var o=S.orders.filter(function(x){return x.id.toUpperCase()===idq&&x.customer.phone===ph})[0];
+    ui.track.found=o?o.id:null;ui.track.err=!o;ui.confirmCancel=false;renderLayer()}
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&route()!=='admin'&&ui.modal&&ui.modal.t!=='lang'&&ui.modal.t!=='thanks'||(e.key==='Escape'&&ui.drawer)){ui.modal=ui.modal&&(ui.modal.t==='lang'||ui.modal.t==='thanks')?ui.modal:null;ui.drawer=null;renderLayer()}});
+/* ---------- admin ---------- */
+var authed=false,tab='orders',editing=null,draft={},rdraft={title:'',link:'',img:''},confirmId=null,confirmT;
+var adm={of:'all',cancelFor:null,cancelReason:'Out of stock',cancelText:''};
+var NEXT={placed:'confirmed',confirmed:'packed',packed:'shipped',shipped:'delivered'};
+var REASONS=['Out of stock','Customer asked to cancel','Payment not received','Address not serviceable','Wrong details given','Other'];
+function readImage(file,max,type,q,cb){
+  if(!file)return;var fr=new FileReader();
+  fr.onload=function(){var im=new Image();im.onload=function(){var r=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL(type,q))};im.onerror=function(){toast('Ye photo khul nahi payi, doosri try karein.')};im.src=fr.result};
+  fr.readAsDataURL(file);
+}
+function uid(p){return p+Date.now().toString(36)+Math.floor(Math.random()*999)}
+function dfield(k,label,type,extra){return '<label class="f" for="d-'+k+'">'+label+'<input id="d-'+k+'" data-d="'+k+'" type="'+(type||'text')+'" value="'+esc(draft[k]==null?'':draft[k])+'" '+(extra||'')+'></label>'}
+function sfield(id,label,val,type,extra){return '<label class="f" for="'+id+'">'+label+'<input id="'+id+'" type="'+(type||'text')+'" value="'+esc(val==null?'':val)+'" '+(extra||'')+'></label>'}
+function fdate(iso){return new Date(iso).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})}
+function pillFor(o){return '<span class="pill '+(o.status==='cancelled'?'red':(o.status==='delivered'?'green':''))+'">'+aLabel(o.status,o)+'</span>'}
+function aLabel(s,o){return {placed:'New',confirmed:'Confirmed',packed:'Packed',shipped:(o&&o.deliv==='pickup')?'Ready for pickup':'Out for delivery',delivered:'Delivered',cancelled:'Cancelled'}[s]}
+function aPay(o){return {pending:'Payment pending',paid:'Paid',refund_due:'Refund due',refunded:'Refunded',void:'No payment'}[o.pay.status]}
+function renderAdmin(){
+  if(!authed){
+    $('#app').innerHTML='<div class="adm"><div class="wrap login"><div class="panel"><div style="width:64px;margin:0 auto 8px">'+CROWN+'</div><h3 class="gold-text" style="font-size:32px">Dukaan Panel</h3><form id="loginform"><label class="f" for="pin" style="text-align:left">PIN daalein<input id="pin" type="password" inputmode="numeric" autocomplete="current-password"></label><div class="actions" style="justify-content:center"><button class="btn">Login</button></div></form>'+(S.pinChanged?'':'<p class="note" style="margin-top:16px">Pehli baar ka PIN <b>1234</b> hai. Login ke baad "Look" tab mein badal dein.</p>')+'<p style="margin:16px 0 0"><button class="linkbtn" data-home>Website par wapas jayein</button></p></div></div></div>';return}
+  var tabs=[['orders','Orders'],['products','Products'],['reviews','Reviews'],['offers','Offers'],['reels','Reels'],['info','Dukaan aur payment'],['look','Look'],['backup','Backup']],newN=S.orders.filter(function(o){return o.status==='placed'}).length,body='';
+  body={orders:adminOrders,products:adminProducts,reviews:adminReviews,offers:adminOffers,reels:adminReels,info:adminInfo,look:adminLook,backup:adminBackup}[tab]();
+  $('#app').innerHTML='<div class="adm"><div class="adm-head"><div class="wrap"><b>Dukaan Panel</b><button class="btn sm ghost" style="color:var(--gold-light);border-color:var(--gold-light)" data-home>Website dekhein</button><button class="btn sm ghost" style="color:var(--gold-light);border-color:var(--gold-light)" data-logout>Logout</button></div></div><div class="wrap"><div class="tabs" role="tablist">'+
+  tabs.map(function(t){return '<button class="tab" role="tab" aria-selected="'+(tab===t[0])+'" data-tab="'+t[0]+'">'+t[1]+(t[0]==='orders'&&newN?' ('+newN+')':'')+'</button>'}).join('')+'</div>'+body+'<div style="height:60px"></div></div></div>';
+}
+function orderCard(o){
+  var c=o.customer,addr=o.deliv==='pickup'?'Store pickup':esc(c.addr)+', '+esc(c.city)+' '+esc(c.pin),open=o.status!=='cancelled'&&o.status!=='delivered';
+  var msg='Namaste '+c.name+', your order '+o.id+' at The Queen Fashion is now: '+aLabel(o.status,o)+'. Thank you for shopping with us!';
+  return '<div class="ord"><div class="oh"><b>'+o.id+'</b><span>'+pillFor(o)+'<span class="pill">'+aPay(o)+'</span></span><small>'+fdate(o.created)+'</small></div>'+
+  '<div class="cust"><b>'+esc(c.name)+'</b> &middot; '+esc(c.phone)+'<br>'+addr+(c.note?'<br>Note: '+esc(c.note):'')+'</div>'+
+  '<table>'+o.items.map(function(i){return '<tr><td>'+esc(i.name)+(i.size?' ['+esc(i.size)+']':'')+' &times; '+i.qty+'</td><td>'+money(i.price*i.qty)+'</td></tr>'}).join('')+(o.disc?'<tr><td>Discount '+esc(o.coupon)+'</td><td>-'+money(o.disc)+'</td></tr>':'')+'<tr><td>Delivery</td><td>'+(o.fee?money(o.fee):'Free')+'</td></tr><tr><td><b>Total</b></td><td><b>'+money(o.total)+'</b></td></tr></table>'+
+  '<div class="cust">Payment: <b>'+o.pay.method.toUpperCase()+'</b>'+(o.pay.ref?' &middot; Ref '+esc(o.pay.ref):'')+(o.cancel?'<br>Cancelled ('+(o.cancel.by==='customer'?'by customer':'by shop')+'): '+esc(o.cancel.reason):'')+'</div>'+
+  '<div class="actions">'+(NEXT[o.status]?'<button class="btn sm" data-ostep="'+o.id+'">'+{confirmed:'Confirm order',packed:'Mark packed',shipped:(o.deliv==='pickup'?'Ready for pickup':'Out for delivery'),delivered:'Mark delivered'}[NEXT[o.status]]+'</button>':'')+
+  (o.pay.status==='pending'&&o.status!=='cancelled'?'<button class="btn sm ghost" data-opay="'+o.id+':paid">Mark payment received</button>':'')+(o.pay.status==='refund_due'?'<button class="btn sm ghost" data-opay="'+o.id+':refunded">Mark refunded</button>':'')+
+  '<a class="btn sm wa" target="_blank" rel="noopener" href="'+waLink(msg,'91'+c.phone)+'">'+iconWA()+' Message customer</a>'+(open?'<button class="btn sm danger" data-ocopen="'+o.id+'">Cancel order</button>':'')+'</div>'+
+  (adm.cancelFor===o.id?'<div class="cancelbox"><b>Is order ko cancel karein?</b><label class="f">Reason<select id="c-reason">'+REASONS.map(function(r){return '<option'+(r===adm.cancelReason?' selected':'')+'>'+r+'</option>'}).join('')+'</select></label><label class="f">Note (optional)<input id="c-text" value="'+esc(adm.cancelText)+'"></label><div class="actions" style="margin:0"><button class="btn sm danger" data-ocdo="'+o.id+'">Haan, cancel karein</button><button class="btn sm ghost" data-ocback>Rehne dein</button></div>'+(o.pay.status==='paid'?'<small>Payment aa chuka hai, cancel karne par "Refund due" ban jayega.</small>':'')+'</div>':'')+'</div>';
+}
+function adminOrders(){
+  var O=S.orders,today=new Date().toDateString(),sales=O.filter(function(o){return o.status!=='cancelled'&&new Date(o.created).toDateString()===today}).reduce(function(a,o){return a+o.total},0);
+  var cnt=function(f){return O.filter(f).length};
+  var chips=['all','placed','confirmed','packed','shipped','delivered','cancelled'],list=O.filter(function(o){return adm.of==='all'||o.status===adm.of});
+  return '<div class="stats"><div class="stat"><b>'+cnt(function(o){return o.status==='placed'})+'</b><span>New orders</span></div><div class="stat"><b>'+cnt(function(o){return ['confirmed','packed','shipped'].indexOf(o.status)>-1})+'</b><span>In progress</span></div><div class="stat"><b>'+cnt(function(o){return o.pay.status==='pending'&&o.status!=='cancelled'})+'</b><span>Payment pending</span></div><div class="stat"><b>'+money(sales)+'</b><span>Today\'s sales</span></div><div class="stat"><b>'+cnt(function(o){return o.status==='cancelled'})+'</b><span>Cancelled</span></div></div>'+
+  '<p class="note">Customer ka order WhatsApp par bhi aapko bhejne ko kehta hai. Is demo mein orders usi phone ke browser mein dikhte hain jisse order kiya gaya. Sabhi phones ke orders ek jagah dekhne ke liye hosted backend lagana padega.</p>'+
+  '<div class="chips" style="margin-bottom:16px">'+chips.map(function(c){return '<button class="chip" data-ofilter="'+c+'" aria-pressed="'+(adm.of===c)+'">'+(c==='all'?'All':{placed:'New',confirmed:'Confirmed',packed:'Packed',shipped:'Dispatched',delivered:'Delivered',cancelled:'Cancelled'}[c])+'</button>'}).join('')+'</div>'+
+  (list.length?list.map(orderCard).join(''):'<div class="empty">Is filter mein koi order nahi hai. Website par test order karke dekh sakte hain.</div>');
+}
+function adminProducts(){
+  var form='';
+  if(editing){
+    var img=draft.img;
+    form='<div class="panel"><h3>'+(editing==='new'?'Naya product jodein':'Product badlein')+'</h3><form id="pform"><div class="fgrid">'+dfield('name','Product ka naam (English)','text','required maxlength="80"')+dfield('nameHi','Hindi naam (Hindi aur Bhojpuri mein dikhega)','text','maxlength="80"')+
+    '<label class="f" for="d-cat">Category<select id="d-cat" data-d="cat">'+S.categories.map(function(c){return '<option'+(c===draft.cat?' selected':'')+'>'+esc(c)+'</option>'}).join('')+'</select></label>'+
+    dfield('price','Daam (₹)','number','required min="0"')+dfield('old','Purana daam (₹), chhoot dikhane ke liye','number','min="0"')+
+    '<label class="f" for="d-badge">Tag<select id="d-badge" data-d="badge">'+['','New','Bestseller','Sale','Limited'].map(function(b){return '<option value="'+b+'"'+(b===draft.badge?' selected':'')+'>'+(b||'Koi nahi')+'</option>'}).join('')+'</select></label>'+
+    dfield('stock','Stock (khali chhodein to unlimited)','number','min="0"')+dfield('sizes','Sizes, comma se alag (jaise S,M,L,XL)','text','')+
+    '<label class="f full" for="d-desc">Vivaran (English)<textarea id="d-desc" data-d="desc" maxlength="240">'+esc(draft.desc||'')+'</textarea></label><label class="f full" for="d-descHi">Vivaran (Hindi)<textarea id="d-descHi" data-d="descHi" maxlength="240">'+esc(draft.descHi||'')+'</textarea></label>'+
+    '<div class="full"><label class="f" for="p-img">Photo<input id="p-img" type="file" accept="image/*"></label><div style="display:flex;gap:14px;align-items:center;margin-top:10px;flex-wrap:wrap">'+(img?'<div class="prev"><img src="'+img+'" alt="Preview"></div><button type="button" class="btn sm danger" data-rmimg>Photo hatayein</button>':'<span class="note" style="margin:0">Photo nahi hai to placeholder dikhega.</span>')+'</div></div></div><div class="actions"><button class="btn">Save karein</button><button type="button" class="btn ghost" data-cancel>Rehne dein</button></div></form></div>';
+  }
+  var hasDemo=S.products.some(function(p){return p.sample});
+  return form+'<div class="panel"><h3>Sab products ('+S.products.length+')</h3>'+(hasDemo?'<p class="note">"Demo" wale namoone products hain. Apne products jodkar inhe hata dein.</p>':'')+
+  '<div class="actions" style="margin:0 0 8px"><button class="btn" data-newp>+ Naya product</button>'+(hasDemo?'<button class="btn ghost" data-cleardemo>Saare demo hatayein</button>':'')+'</div>'+
+  (S.products.length?S.products.map(function(p){return '<div class="row-item"><div class="thumb">'+pic(p)+'</div><div class="t"><b>'+esc(p.name)+(p.sample?'<span class="pill demo">Demo</span>':'')+(p.featured?'<span class="pill">Mukhya</span>':'')+(soldOut(p)?'<span class="pill red">Sold out</span>':'')+'</b><small>'+esc(p.cat)+' &middot; '+money(p.price)+(p.stock!==''&&p.stock!=null?' &middot; Stock '+p.stock:'')+'</small></div><button class="btn sm ghost" data-editp="'+p.id+'">Badlein</button><button class="btn sm ghost" data-togp="soldout:'+p.id+'">'+(p.soldout?'Wapas stock mein':'Sold out karein')+'</button><button class="btn sm ghost" data-togp="featured:'+p.id+'">'+(p.featured?'Mukhya hatayein':'Mukhya banayein')+'</button><button class="btn sm danger" data-delp="'+p.id+'">'+(confirmId==='p'+p.id?'Pakka? Dobara dabayein':'Delete')+'</button></div>'}).join(''):'<div class="empty">Abhi koi product nahi.</div>')+'</div>';
+}
+function adminReviews(){
+  var l=S.reviews.slice().sort(function(a,b){return b.at<a.at?-1:1});
+  return '<div class="panel"><h3>Customer reviews ('+l.length+')</h3>'+(l.length?l.map(function(r){var p=prod(r.pid);return '<div class="row-item"><div class="t"><b>'+esc(r.name)+' '+starsHTML(r.rating)+'</b><small>'+(p?esc(p.name):'Deleted product')+' &middot; '+fdate(r.at)+'</small><div>'+esc(r.text||'')+'</div></div><button class="btn sm danger" data-delr="'+r.id+'">'+(confirmId==='r'+r.id?'Pakka? Dobara dabayein':'Delete')+'</button></div>'}).join(''):'<div class="empty">Abhi koi review nahi aaya. Customers product ke page par review likh sakte hain.</div>')+'</div>';
+}
+function adminOffers(){
+  return '<div class="panel"><h3>Naya offer</h3><form id="oform"><div class="fgrid">'+sfield('o-title','Offer ka naam (English)','','text','required maxlength="60"')+sfield('o-titleHi','Hindi naam','','text','maxlength="60"')+sfield('o-code','Coupon code (zaruri nahi)','','text','maxlength="20"')+sfield('o-percent','Discount % (coupon ke liye)','','number','min="0" max="90"')+sfield('o-till','Kab tak','','text','maxlength="40"')+
+  '<label class="f full" for="o-text">Jaankari (English)<textarea id="o-text" maxlength="200" required></textarea></label><label class="f full" for="o-textHi">Jaankari (Hindi)<textarea id="o-textHi" maxlength="200"></textarea></label></div><div class="actions"><button class="btn">Offer jodein</button></div></form></div>'+
+  '<div class="panel"><h3>Sab offers</h3>'+(S.offers.length?S.offers.map(function(o){return '<div class="row-item"><div class="t"><b>'+esc(o.title)+(o.sample?'<span class="pill demo">Demo</span>':'')+'<span class="pill">'+(o.active?'Chalu':'Band')+'</span>'+(o.code&&o.percent?'<span class="pill">'+esc(o.code)+' = '+o.percent+'%</span>':'')+'</b><small>'+esc(o.text)+'</small></div><button class="btn sm ghost" data-togo="'+o.id+'">'+(o.active?'Band karein':'Chalu karein')+'</button><button class="btn sm danger" data-delo="'+o.id+'">'+(confirmId==='o'+o.id?'Pakka? Dobara dabayein':'Delete')+'</button></div>'}).join(''):'<div class="empty">Abhi koi offer nahi.</div>')+'</div>';
+}
+function adminReels(){
+  return '<div class="panel"><h3>Instagram reel jodein</h3><p class="note">Instagram ki reel ka link paste karein aur chahein to ek photo (thumbnail) lagayein. Website par reel card dikhega aur dabane par Instagram mein khulegi.</p><form id="rform"><div class="fgrid">'+sfield('r-title','Reel ka naam',rdraft.title,'text','required maxlength="50"')+sfield('r-link','Reel ka link',rdraft.link,'url','required placeholder="https://www.instagram.com/thequeenfashionrasra/reels/"')+
+  '<div class="full"><label class="f" for="r-img">Thumbnail photo (zaruri nahi)<input id="r-img" type="file" accept="image/*"></label>'+(rdraft.img?'<div class="prev" style="margin-top:10px"><img src="'+rdraft.img+'" alt="Preview"></div>':'')+'</div></div><div class="actions"><button class="btn">Reel jodein</button></div></form></div>'+
+  '<div class="panel"><h3>Sab reels</h3>'+(S.reels.length?S.reels.map(function(r){return '<div class="row-item"><div class="thumb">'+(r.img?'<img src="'+r.img+'" alt="">':ph({id:r.id,title:r.title}))+'</div><div class="t"><b>'+esc(r.title)+(r.sample?'<span class="pill demo">Demo</span>':'')+'</b><small>'+esc(r.link)+'</small></div><button class="btn sm danger" data-delreel="'+r.id+'">'+(confirmId==='v'+r.id?'Pakka? Dobara dabayein':'Delete')+'</button></div>'}).join(''):'<div class="empty">Koi reel nahi.</div>')+'</div>';
+}
+function adminInfo(){
+  var s=S.settings;
+  return '<div class="panel"><h3>Dukaan ki jaankari</h3><p class="note">Tagline, upar ki patti, About aur Timing khali chhodne par teeno bhashaon mein apne aap likha hua dikhta hai. Yahan likhne par sirf wahi text sabhi bhashaon mein dikhega.</p><form id="iform"><div class="fgrid">'+
+  sfield('i-name','Dukaan ka naam',s.name)+sfield('i-phone','Phone number',s.phone,'tel')+sfield('i-wa','WhatsApp number (91 ke saath)',s.whatsapp,'tel','inputmode="numeric"')+sfield('i-insta','Instagram link',s.instagram,'url')+sfield('i-maps','Google Maps link',s.maps,'url')+sfield('i-hours','Dukaan ka samay (khali = default)',s.hours)+sfield('i-tag','Tagline (khali = default)',s.tagline)+
+  '<label class="f full" for="i-addr">Poora pata<textarea id="i-addr">'+esc(s.address)+'</textarea></label><label class="f full" for="i-ann">Upar ki patti (khali = default)<textarea id="i-ann">'+esc(s.announce)+'</textarea></label><label class="f full" for="i-about">Hamare baare mein (khali = default)<textarea id="i-about">'+esc(s.about)+'</textarea></label></div>'+
+  '<h3 style="margin-top:22px">Payment aur delivery</h3>'+(s.upi==='demo@upi'?'<p class="note" style="background:#fff1c9">UPI ID abhi demo hai. Apna asli UPI ID zaroor daalein, warna customer ka paisa nahi aayega.</p>':'')+
+  '<p class="note">Card aur net banking ke liye Razorpay jaisa payment gateway chahiye. Uske liye business account aur server zaruri hai. Abhi UPI, Cash on delivery aur dukaan par payment chalta hai.</p><div class="fgrid">'+sfield('i-upi','UPI ID',s.upi)+sfield('i-upiname','UPI par dikhne wala naam',s.upiName)+sfield('i-fee','Delivery charge (₹)',s.deliveryFee,'number','min="0"')+sfield('i-free','Is raashi se upar delivery free (₹, 0 = kabhi nahi)',s.freeAbove,'number','min="0"')+sfield('i-rdays','Return ke din',s.returnDays,'number','min="0"')+sfield('i-ddays','Delivery mein kitne din (jaise 2 to 5)',s.deliveryDays)+sfield('i-area','Delivery area',s.area)+
+  '<label class="f" for="i-cod" style="flex-direction:row;align-items:center;gap:10px"><input id="i-cod" type="checkbox" style="width:auto"'+(s.codOn?' checked':'')+'> Cash on delivery chalu rakhein</label></div><p class="note" style="margin-top:14px">Delivery charge, free-delivery limit aur return ke din legal pages mein bhi apne aap badal jate hain. Delivery charge 60, free 2999 aur return 7 din maine andaaze se rakhe hain, inhe apni dukaan ke hisab se badlein.</p><div class="actions"><button class="btn">Save karein</button></div></form></div>'+
+  '<div class="panel"><h3>Categories</h3><div class="sw" style="margin-bottom:12px">'+S.categories.map(function(c,i){return '<span class="pill" style="font-size:14px;padding:6px 14px;margin:0">'+esc(c)+' <button class="linkbtn" data-delcat="'+i+'" aria-label="'+esc(c)+' hatayein">&times;</button></span>'}).join('')+'</div><form id="cform" class="actions" style="margin:0"><input id="c-new" placeholder="Nayi category" style="border:1px solid var(--line);border-radius:999px;padding:10px 16px;font:inherit;min-width:0;flex:1;max-width:260px" aria-label="Nayi category"><button class="btn sm">Jodein</button></form></div>';
+}
+function adminLook(){
+  var cols=[['#C9A24B','Sunehra'],['#C98F7A','Rose gold'],['#BFA77A','Champagne'],['#B08A3E','Purana sona'],['#D4AF37','Chamakdar sona']];
+  return '<div class="panel"><h3>Rang</h3><p class="note">Poori website ka sunehra rang yahan se badlein.</p><div class="sw">'+cols.map(function(c){return '<button style="background:'+c[0]+'" data-col="'+c[0]+'" aria-pressed="'+(S.accent.toLowerCase()===c[0].toLowerCase())+'" aria-label="'+c[1]+'" title="'+c[1]+'"></button>'}).join('')+'<label class="f" style="flex-direction:row;align-items:center;gap:10px" for="col-custom">Apna rang <input id="col-custom" type="color" value="'+S.accent+'" style="width:48px;height:40px;padding:2px;border-radius:8px"></label></div></div>'+
+  '<div class="panel"><h3>Logo</h3><p class="note">Apna logo upload karein. Na ho to taaj wala nishan dikhega.</p><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div style="width:72px;height:72px">'+logoHTML().replace('<img','<img style="width:72px;height:72px;object-fit:contain"')+'</div><label class="f" for="logo-file" style="flex:1;min-width:200px"><input id="logo-file" type="file" accept="image/*"></label>'+(S.logo?'<button class="btn sm danger" data-rmlogo>Logo hatayein</button>':'')+'</div></div>'+
+  '<div class="panel"><h3>PIN badlein</h3><form id="pinform"><div class="fgrid">'+sfield('pin-new','Naya PIN (kam se kam 4 ank)','','password','inputmode="numeric" minlength="4" required autocomplete="new-password"')+'</div><div class="actions"><button class="btn">PIN badlein</button></div></form></div>';
+}
+function adminBackup(){
+  return '<div class="panel"><h3>Backup</h3><p class="note">Ye data aapke is browser mein save hota hai. Phone badalne ya browser saaf karne se pehle backup copy karke rakhein.</p><label class="f" for="bk-out">Data<textarea id="bk-out" class="mono" readonly>'+esc(JSON.stringify(S))+'</textarea></label><div class="actions"><button class="btn sm" data-copybk>Copy karein</button></div></div>'+
+  '<div class="panel"><h3>Backup wapas lagayein</h3><label class="f" for="bk-in">Pehle copy kiya hua data paste karein<textarea id="bk-in" class="mono"></textarea></label><div class="actions"><button class="btn sm" data-restore>Wapas lagayein</button><button class="btn sm danger" data-reset>Demo par wapas jayein</button></div></div>';
+}
+function arm(id,fn){if(confirmId===id){confirmId=null;fn()}else{confirmId=id;clearTimeout(confirmT);confirmT=setTimeout(function(){confirmId=null;if(route()==='admin')renderAdmin()},4000)}renderAdmin()}
+function openForm(id){editing=id;if(id==='new')draft={name:'',nameHi:'',cat:S.categories[0]||'',price:'',old:'',badge:'',stock:'',sizes:'',desc:'',descHi:'',img:''};else{var p=prod(id);draft=Object.assign({},p,{sizes:(p.sizes||[]).join(', '),old:p.old||''})}renderAdmin();window.scrollTo(0,0)}
+document.addEventListener('click',function(e){
+  if(route()!=='admin')return;var t=e.target,x;
+  if(t.closest('[data-home]')){location.hash='';return}
+  if(t.closest('[data-logout]')){authed=false;renderAdmin();return}
+  if(x=t.closest('[data-tab]')){tab=x.getAttribute('data-tab');editing=null;renderAdmin();return}
+  if(x=t.closest('[data-ofilter]')){adm.of=x.getAttribute('data-ofilter');renderAdmin();return}
+  if(x=t.closest('[data-ostep]')){var o=S.orders.filter(function(o){return o.id===x.getAttribute('data-ostep')})[0];if(o&&NEXT[o.status]){o.status=NEXT[o.status];o.history.push({s:o.status,at:new Date().toISOString()});if(o.status==='delivered'&&o.pay.status==='pending'&&o.pay.method!=='upi')o.pay.status='paid';save();toast('Order: '+aLabel(o.status,o))}renderAdmin();return}
+  if(x=t.closest('[data-opay]')){var a=x.getAttribute('data-opay').split(':'),o2=S.orders.filter(function(o){return o.id===a[0]})[0];if(o2){o2.pay.status=a[1];save();toast('Payment update ho gaya')}renderAdmin();return}
+  if(x=t.closest('[data-ocopen]')){adm.cancelFor=x.getAttribute('data-ocopen');adm.cancelReason=REASONS[0];adm.cancelText='';renderAdmin();return}
+  if(t.closest('[data-ocback]')){adm.cancelFor=null;renderAdmin();return}
+  if(x=t.closest('[data-ocdo]')){var why=adm.cancelReason+(adm.cancelText?': '+adm.cancelText:'');if(cancelOrder(x.getAttribute('data-ocdo'),why,'shop'))toast('Order cancel ho gaya');adm.cancelFor=null;renderAdmin();return}
+  if(t.closest('[data-newp]')){openForm('new');return}
+  if(x=t.closest('[data-editp]')){openForm(x.getAttribute('data-editp'));return}
+  if(t.closest('[data-cancel]')){editing=null;renderAdmin();return}
+  if(t.closest('[data-rmimg]')){draft.img='';renderAdmin();return}
+  if(x=t.closest('[data-togp]')){var b=x.getAttribute('data-togp').split(':'),p=prod(b[1]);if(p){p[b[0]]=!p[b[0]];if(b[0]==='featured'&&p.featured)S.products.forEach(function(q){if(q!==p)q.featured=false});save();renderAdmin()}return}
+  if(x=t.closest('[data-delp]')){var id=x.getAttribute('data-delp');arm('p'+id,function(){S.products=S.products.filter(function(p){return p.id!==id});cust.wish=cust.wish.filter(function(w){return w!==id});save();toast('Product delete ho gaya')});return}
+  if(t.closest('[data-cleardemo]')){S.products=S.products.filter(function(p){return !p.sample});S.offers=S.offers.filter(function(o){return !o.sample});S.reels=S.reels.filter(function(r){return !r.sample});save();toast('Demo hata diye');renderAdmin();return}
+  if(x=t.closest('[data-delr]')){var rid=x.getAttribute('data-delr');arm('r'+rid,function(){S.reviews=S.reviews.filter(function(r){return r.id!==rid});save();toast('Review delete ho gaya')});return}
+  if(x=t.closest('[data-togo]')){var of=S.offers.filter(function(o){return o.id===x.getAttribute('data-togo')})[0];if(of){of.active=!of.active;save();renderAdmin()}return}
+  if(x=t.closest('[data-delo]')){var oid=x.getAttribute('data-delo');arm('o'+oid,function(){S.offers=S.offers.filter(function(o){return o.id!==oid});save()});return}
+  if(x=t.closest('[data-delreel]')){var vid=x.getAttribute('data-delreel');arm('v'+vid,function(){S.reels=S.reels.filter(function(r){return r.id!==vid});save()});return}
+  if(x=t.closest('[data-delcat]')){var i=Number(x.getAttribute('data-delcat')),c=S.categories[i];if(S.products.some(function(p){return p.cat===c})){toast('Is category mein products hain. Pehle unhe doosri category mein daalein.');return}S.categories.splice(i,1);save();renderAdmin();return}
+  if(x=t.closest('[data-col]')){S.accent=x.getAttribute('data-col');save();applyTheme();renderAdmin();return}
+  if(t.closest('[data-rmlogo]')){S.logo='';save();renderAdmin();return}
+  if(t.closest('[data-copybk]')){var ta=$('#bk-out');ta.select();try{navigator.clipboard.writeText(ta.value).then(function(){toast('Copy ho gaya')},function(){toast('Text select ho gaya, ab copy karein')})}catch(err){toast('Text select ho gaya, ab copy karein')}return}
+  if(t.closest('[data-restore]')){try{var d=JSON.parse($('#bk-in').value);if(!d||!d.settings||!d.products)throw 0;S=Object.assign(clone(DEF),d);S.settings=Object.assign({},DEF.settings,d.settings);save();applyTheme();toast('Backup wapas lag gaya');renderAdmin()}catch(err){toast('Ye sahi backup nahi lag raha. Poora data copy karke paste karein.')}return}
+  if(t.closest('[data-reset]')){arm('reset',function(){S=clone(DEF);save();applyTheme();toast('Demo data wapas aa gaya')});return}
+});
+document.addEventListener('input',function(e){
+  if(route()!=='admin')return;var el=e.target,k=el.getAttribute('data-d');
+  if(k){draft[k]=el.value;return}
+  if(el.id==='c-text')adm.cancelText=el.value;
+});
+document.addEventListener('change',function(e){
+  if(route()!=='admin')return;var el=e.target;
+  if(el.getAttribute('data-d')){draft[el.getAttribute('data-d')]=el.value}
+  if(el.id==='c-reason')adm.cancelReason=el.value;
+  if(el.id==='p-img')readImage(el.files[0],800,'image/jpeg',.74,function(d){draft.img=d;renderAdmin()});
+  if(el.id==='r-img')readImage(el.files[0],500,'image/jpeg',.72,function(d){rdraft.title=$('#r-title').value;rdraft.link=$('#r-link').value;rdraft.img=d;renderAdmin()});
+  if(el.id==='logo-file')readImage(el.files[0],320,'image/png',1,function(d){S.logo=d;if(save()){toast('Logo lag gaya');renderAdmin()}});
+  if(el.id==='col-custom'){S.accent=el.value;save();applyTheme();renderAdmin()}
+});
+document.addEventListener('submit',function(e){
+  if(route()!=='admin')return;var id=e.target.id;
+  if(id==='loginform'){e.preventDefault();if($('#pin').value===S.pin){authed=true;renderAdmin()}else toast('PIN galat hai');return}
+  if(id==='pform'){e.preventDefault();var cur=prod(editing),isNew=!cur,p=cur||{id:uid('p'),soldout:false,featured:false,sample:false};
+    p.name=(draft.name||'').trim();p.nameHi=(draft.nameHi||'').trim();p.cat=draft.cat;p.price=Number(draft.price)||0;p.old=Number(draft.old)||0;p.badge=draft.badge||'';p.stock=(draft.stock===''||draft.stock==null)?'':Number(draft.stock);
+    p.sizes=String(draft.sizes||'').split(',').map(function(z){return z.trim()}).filter(Boolean);p.desc=(draft.desc||'').trim();p.descHi=(draft.descHi||'').trim();p.img=draft.img||'';
+    if(isNew)S.products.unshift(p);
+    if(save()){toast(isNew?'Product jud gaya':'Badlav save ho gaya');editing=null;renderAdmin()}else if(isNew)S.products.shift();return}
+  if(id==='oform'){e.preventDefault();S.offers.unshift({id:uid('o'),title:$('#o-title').value.trim(),titleHi:$('#o-titleHi').value.trim(),text:$('#o-text').value.trim(),textHi:$('#o-textHi').value.trim(),code:$('#o-code').value.trim(),percent:Number($('#o-percent').value)||0,till:$('#o-till').value.trim(),active:true,sample:false});save();toast('Offer jud gaya');renderAdmin();return}
+  if(id==='rform'){e.preventDefault();S.reels.push({id:uid('r'),title:$('#r-title').value.trim(),link:$('#r-link').value.trim(),img:rdraft.img||'',sample:false});rdraft={title:'',link:'',img:''};save();toast('Reel jud gayi');renderAdmin();return}
+  if(id==='iform'){e.preventDefault();var s=S.settings,v=function(i){return $(i).value.trim()};
+    s.name=v('#i-name')||s.name;s.phone=v('#i-phone');s.whatsapp=$('#i-wa').value.replace(/\D/g,'');s.instagram=v('#i-insta');s.maps=v('#i-maps');s.hours=v('#i-hours');s.tagline=v('#i-tag');s.address=v('#i-addr');s.announce=v('#i-ann');s.about=v('#i-about');
+    s.upi=v('#i-upi');s.upiName=v('#i-upiname');s.deliveryFee=Number($('#i-fee').value)||0;s.freeAbove=Number($('#i-free').value)||0;s.returnDays=Number($('#i-rdays').value)||0;s.deliveryDays=v('#i-ddays');s.area=v('#i-area');s.codOn=$('#i-cod').checked;
+    save();toast('Jaankari save ho gayi');renderAdmin();return}
+  if(id==='cform'){e.preventDefault();var cv=$('#c-new').value.trim();if(cv&&S.categories.indexOf(cv)<0){S.categories.push(cv);save();renderAdmin()}return}
+  if(id==='pinform'){e.preventDefault();var n=$('#pin-new').value.trim();if(n.length<4){toast('PIN kam se kam 4 ank ka rakhein');return}S.pin=n;S.pinChanged=true;save();toast('PIN badal gaya');renderAdmin()}
+});
+/* ---------- start ---------- */
+applyTheme();
+document.documentElement.setAttribute('data-lang',cust.lang);document.documentElement.lang=cust.lang;
+window.addEventListener('hashchange',function(){if(route()!==curRoute)go()});
+go();
+})();
+</script>
+
+</body></html>
